@@ -1,0 +1,49 @@
+<form [formGroup]="addQuestionForm" (ngSubmit)="addQuestion(addQuestionForm.value)">
+  <h2 mat-dialog-title>Add Question</h2>
+  <mat-dialog-content class="mat-typography">
+      <div class="container">
+        <div class="row">
+          <h3>Question Details</h3>
+        </div>
+
+        <div class="row">
+          <mat-form-field style="width: 100% !important;">
+            <textarea matInput placeholder="Question" formControlName="question"></textarea>
+            <mat-error *ngIf="question.hasError('required')">
+              Course name is required.
+            </mat-error>
+
+            <mat-error *ngIf="question.hasError('pattern')">
+              Course name is not valid.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field style="width: 100% !important;">
+              <mat-select placeholder="Related Course" formControlName="course" multiple required>
+                <mat-select-trigger>
+                  {{course.value ? findById(course.value[0]) : ''}}
+                  <span *ngIf="course.value?.length > 1" class="example-additional-selection">
+                  (+{{course.value.length - 1}} {{course.value?.length === 2 ? 'other' : 'others'}})
+                  </span>
+                </mat-select-trigger>
+
+                <mat-option *ngFor="let course of courseData" [value]="course.id">{{course.course_name}}</mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="course.hasError('required')">
+                Related course is required.
+              </mat-error>
+
+            </mat-form-field>
+        </div>
+      </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cancel</button>
+    <button type="submit" mat-button>Submit</button>
+  </mat-dialog-actions>
+</form>
+

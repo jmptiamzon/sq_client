@@ -1,0 +1,232 @@
+<div class="jumbotron">
+  <h1 class="display-4">Hello, {{currentUser.firstname}}!</h1>
+  <p class="lead">This is the help page which can help you on how to traverse / use the site.</p>
+  <hr class="my-4">
+
+  <mat-accordion class="headers-align">
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Dashboard
+        </mat-panel-title>
+        <mat-panel-description>
+          Click this panel to learn more about Dasboard
+          <mat-icon>dashboard</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-vertical-stepper [linear]="isLinear" #stepper>
+        <ng-template matStepperIcon="edit"><mat-icon>notes</mat-icon></ng-template>
+
+        <mat-step label="Step 1">
+          <p>If not yet in <b>Dashboard</b> page, click the navigation button named <b>Dashboard</b>.</p>
+          <img src="../../../../assets/navigation/dashboard.PNG"/>
+        </mat-step>
+        <mat-step label="Step 2">
+          Content 2
+        </mat-step>
+      </mat-vertical-stepper>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          User Management
+        </mat-panel-title>
+        <mat-panel-description>
+          Click this panel to learn more about User Management
+          <mat-icon>supervisor_account</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-vertical-stepper [linear]="isLinear" #stepper>
+        <ng-template matStepperIcon="edit"><mat-icon>notes</mat-icon></ng-template>
+
+        <mat-step label="Navigating to User Management">
+          <p>If not yet in <b>User Management</b> page, click the navigation button named <b>User Management</b>.</p>
+          <img src="../../../../assets/navigation/usermanagement.png"/>
+        </mat-step>
+        <mat-step label="Adding Administrators or Users">
+          <p>Once in User Management page, you have two options on what to edit, <b>administrators</b> and <b>users</b>.
+            Once you have chosen what to edit, you have the capability to <b>add users</b>.
+          </p>
+          <img src="../../../../assets/navigation/add.gif"/>
+        </mat-step>
+        <mat-step label="Updating Administrators or Users">
+          <p>Not only that, you can also <b>update user accounts</b>. Update their <b>personal information</b>, <b>account information</b>, and <b>status</b>.</p>
+          <img src="../../../../assets/navigation/edit.gif"/>
+        </mat-step>
+        <mat-step label="Search Administrators or Users">
+          <p>Want to search specific accounts? You can search the account using the <b>filter field</b>.</p>
+          <img src="../../../../assets/navigation/search.gif"/>
+        </mat-step>
+        <mat-step label="Sort Table Columns">
+          <p>Want to sort the table? You can sort specific columns by <b>ID</b> and <b>Username</b>.</p>
+          <img src="../../../../assets/navigation/sort.gif"/>
+        </mat-step>
+        <mat-step label="Using the Table's Pagination">
+          <p>Want to view the table page by page? Change the number of viewable items per table? <b>Pagination</b> is available at the footer of the current table.</p>
+          <img src="../../../../assets/navigation/pagination.gif"/>
+        </mat-step>
+        <mat-step label="Errors?">
+          <p>Error persists? Table not updating? Added items are not getting added? <b>Contact the developers</b>.</p>
+        </mat-step>
+      </mat-vertical-stepper>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          School Management
+        </mat-panel-title>
+        <mat-panel-description>
+          Click this panel to learn more about School Management
+          <mat-icon>school</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-vertical-stepper [linear]="isLinear" #stepper>
+        <ng-template matStepperIcon="edit"><mat-icon>notes</mat-icon></ng-template>
+
+        <mat-step label="Navigating to School Management">
+          <p>If not yet in <b>School Management</b> page, click the navigation button named <b>School Management</b>.</p>
+          <img src="../../../../assets/navigation/school.PNG"/>
+        </mat-step>
+        <mat-step label="Adding Schools">
+          <p>Once in School Management page, you have the capability to <b>add schools</b>.</p>
+          <img src="../../../../assets/navigation/addSchool.gif"/>
+        </mat-step>
+        <mat-step label="Updating Schools">
+          <p>Not only that, you can also <b>update schools</b>. Update its <b>school information</b> and <b>status</b>.</p>
+          <img src="../../../../assets/navigation/editSchool.gif"/>
+        </mat-step>
+        <mat-step label="Search Schools">
+          <p>Want to search a specific school? You can search the school using the <b>filter field</b>.</p>
+          <img src="../../../../assets/navigation/searchSchool.gif"/>
+        </mat-step>
+        <mat-step label="Sort Table Columns">
+          <p>Want to sort the table? You can sort specific columns by <b>ID</b>.</p>
+          <img src="../../../../assets/navigation/sortSchool.gif"/>
+        </mat-step>
+        <mat-step label="Using the Table's Pagination">
+          <p>Want to view the table page by page? Change the number of viewable items per table? <b>Pagination</b> is available at the footer of the current table.</p>
+          <img src="../../../../assets/navigation/pagination.gif"/>
+        </mat-step>
+        <mat-step label="Errors?">
+          <p>Error persists? Table not updating? Added items are not getting added? <b>Contact the developers</b>.</p>
+        </mat-step>
+      </mat-vertical-stepper>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Course Management
+        </mat-panel-title>
+        <mat-panel-description>
+          Click this panel to learn more about Course Management
+          <mat-icon>library_books</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>I'm visible because I am open</p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Question Management
+        </mat-panel-title>
+        <mat-panel-description>
+          Click this panel to learn more about Question Management
+          <mat-icon>question_answer</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>I'm visible because I am open</p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Application CMS
+        </mat-panel-title>
+        <mat-panel-description>
+          Click this panel to learn more about Application CMS
+          <mat-icon>web</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>I'm visible because I am open</p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Configuration
+        </mat-panel-title>
+        <mat-panel-description>
+          Click this panel to learn more about Configuration
+          <mat-icon>tune</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-vertical-stepper [linear]="isLinear" #stepper>
+        <ng-template matStepperIcon="edit"><mat-icon>notes</mat-icon></ng-template>
+
+        <mat-step label="Navigating to School Management">
+          <p>If not yet in <b>Configuration</b> page, click the navigation button named <b>Configuration</b>.</p>
+          <img src="../../../../assets/navigation/configuration.PNG"/>
+        </mat-step>
+        <mat-step label="Changing Application Status">
+          <p>Once in Configuration page, you have the capability to <b>change application status</b>.</p>
+          <img src="../../../../assets/navigation/appStatus.gif"/>
+        </mat-step>
+        <mat-step label="Backup Database">
+          <p>Want to backup your <b>entire database</b>?</p>
+          <img src="../../../../assets/navigation/backupDB.gif"/>
+        </mat-step>
+        <mat-step label="Backup Database Tables">
+          <p>Want to backup <b>specific database tables</b> instead of the entire database?</p>
+          <img src="../../../../assets/navigation/backupTB.gif"/>
+        </mat-step>
+        <mat-step label="Errors?">
+          <p>Error persists? Application status not changing? Database not exporting? <b>Contact the developers</b>.</p>
+        </mat-step>
+      </mat-vertical-stepper>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          My Account
+        </mat-panel-title>
+        <mat-panel-description>
+          Click this panel to learn more about User Account
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-vertical-stepper [linear]="isLinear" #stepper>
+        <ng-template matStepperIcon="edit"><mat-icon>notes</mat-icon></ng-template>
+
+        <mat-step label="Navigating to My Account">
+          <p>If not yet in <b>My Account</b> page, click the navigation button named <b>My Account</b>.</p>
+          <img src="../../../../assets/navigation/account.PNG"/>
+        </mat-step>
+        <mat-step label="Updating User Account Information">
+          <p>Once in My Account page, you have the capability to update <b>your account</b>.</p>
+          <img src="../../../../assets/navigation/accountUpdate.gif"/>
+        </mat-step>
+        <mat-step label="Errors?">
+          <p>Error persists? Account not updating? <b>Contact the developers</b>.</p>
+        </mat-step>
+      </mat-vertical-stepper>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+</div>

@@ -1,0 +1,57 @@
+<form [formGroup]="editCourseForm" (ngSubmit)="editCourse(editCourseForm.value)">
+    <h2 mat-dialog-title>Add Courses</h2>
+    <input type="hidden" formControlName="id">
+    <mat-dialog-content class="mat-typography">
+        <div class="container">
+          <div class="row">
+            <h3>Course Information</h3>
+          </div>
+
+          <div class="row">
+            <mat-form-field style="width: 100% !important;">
+              <input matInput placeholder="Course Name" formControlName="cname" cdkFocusInitial required>
+              <mat-error *ngIf="cname.hasError('required')">
+                Course name is required.
+              </mat-error>
+
+              <mat-error *ngIf="cname.hasError('pattern')">
+                Course name is not valid.
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field style="width: 100% !important;">
+                <mat-select placeholder="Course Offering Schools" formControlName="sid" multiple required>
+                  <mat-select-trigger>
+                    {{sid.value ? schools && schools[sid.value[0]-1]?.school_name : ''}}
+                    <span *ngIf="sid.value?.length > 1" class="example-additional-selection">
+                    (+{{sid.value.length - 1}} {{sid.value?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+
+                  <mat-option *ngFor="let school of schools" [value]="school.id">{{school.school_name}}</mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="sid.hasError('required')">
+                  Course offering schools is required.
+                </mat-error>
+
+              </mat-form-field>
+          </div>
+
+          <div class="row mt-3">
+            <h3>Course Status</h3>
+          </div>
+
+          <div class="row mb-3">
+            <mat-slide-toggle formControlName="status">Active</mat-slide-toggle>
+          </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button type="button" mat-button mat-dialog-close>Cancel</button>
+      <button type="submit" mat-button>Submit</button>
+    </mat-dialog-actions>
+  </form>

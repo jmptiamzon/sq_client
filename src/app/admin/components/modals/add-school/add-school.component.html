@@ -1,0 +1,58 @@
+<form [formGroup]="addSchoolForm" (ngSubmit)="addSchool(addSchoolForm.value)">
+    <h2 mat-dialog-title>Add School Data</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="container">
+          <div class="row">
+            <h3>School Information</h3>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="mr-3">
+              <input matInput placeholder="School Name" formControlName="sname" cdkFocusInitial required>
+              <mat-error *ngIf="sname.hasError('required')">
+                School name is required.
+              </mat-error>
+
+              <mat-error *ngIf="sname.hasError('pattern')">
+                School name is not valid.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="mr-3">
+              <input matInput placeholder="Minimum Tuition" formControlName="mntuition" required>
+              <mat-error *ngIf="mntuition.hasError('required')">
+                Minimum tuition is required.
+              </mat-error>
+
+              <mat-error *ngIf="mntuition.hasError('pattern')">
+                Minimum tuition is not valid.
+              </mat-error>
+
+              <mat-error *ngIf="mntuition.errors?.msg">
+                {{mntuition.errors.msg}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="mr-3">
+              <input matInput placeholder="Maximum Tuition" formControlName="mxtuition" required>
+              <mat-error *ngIf="mxtuition.hasError('required')">
+                Maximum tuition is required.
+              </mat-error>
+
+              <mat-error *ngIf="mxtuition.hasError('pattern')">
+                Maximum tuition is not valid.
+              </mat-error>
+
+              <mat-error *ngIf="mxtuition.errors?.msg">
+                {{mxtuition.errors.msg}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button type="button" mat-button mat-dialog-close>Cancel</button>
+      <button type="submit" mat-button>Submit</button>
+    </mat-dialog-actions>
+  </form>

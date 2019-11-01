@@ -1,0 +1,113 @@
+<div class="jumbotron">
+  <h1 class="display-4">Hello, {{currentUser.firstname}}!</h1>
+  <p class="lead">This is your account page wherein you can update your personal data and account information used in this page.</p>
+  <hr class="my-4">
+
+  <form [formGroup]="accountForm" (ngSubmit)="editAccount(accountForm.value)">
+    <mat-accordion class="headers-align">
+      <input type="hidden" formControlName="id">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Personal data
+          </mat-panel-title>
+          <mat-panel-description>
+            Click me to update your personal data
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field style="width: 50vh !important;">
+          <input matInput placeholder="First name" formControlName="fname" required>
+          <mat-error *ngIf="fname.hasError('required')">
+            First name is required.
+          </mat-error>
+
+          <mat-error *ngIf="fname.hasError('pattern')">
+            First name is not valid.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field style="width: 50vh !important;">
+          <input matInput placeholder="Middle name" formControlName="mname">
+          <mat-error *ngIf="mname.hasError('pattern')">
+            Middle name is not valid.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field style="width: 50vh !important;">
+          <input matInput placeholder="Last name" formControlName="lname" required>
+          <mat-error *ngIf="lname.hasError('required')">
+            Last name is required.
+          </mat-error>
+
+          <mat-error *ngIf="lname.hasError('pattern')">
+            Last name is not valid.
+          </mat-error>
+        </mat-form-field>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Account information
+          </mat-panel-title>
+          <mat-panel-description>
+              Click me to update your account information
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field style="width: 50vh !important;">
+          <input matInput placeholder="Username" formControlName="uname" required>
+          <mat-error *ngIf="uname.hasError('required')">
+            User name is required.
+          </mat-error>
+
+          <mat-error *ngIf="uname.hasError('minlength')">
+            User name must have a length of six characters.
+          </mat-error>
+
+          <mat-error *ngIf="uname.hasError('maxlength')">
+            User name must have a length of six characters.
+          </mat-error>
+
+          <mat-error *ngIf="uname.hasError('pattern')">
+            User name must only contain alphabet characters.
+          </mat-error>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field style="width: 50vh !important;">
+          <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="pword">
+          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+
+          <mat-error *ngIf="pword.hasError('required')">
+            <p>Password is required.</p>
+          </mat-error>
+
+          <mat-error *ngIf="pword.hasError('minlength')">
+            <p>Password must have a length of eight characters.</p>
+          </mat-error>
+
+          <mat-error *ngIf="pword.hasError('maxlength')">
+            <p>Password must have a length of eight characters.</p>
+          </mat-error>
+
+          <mat-error *ngIf="pword.hasError('pattern')">
+            <p>• Password should contain alteast one uppercase letter.</p>
+            <p>• Password should contain alteast one lowercase letter.</p>
+            <p>• Password should contain alteast one digit.</p>
+            <p>• Password should contain alteast one symbol or space.</p>
+            <p>• Password must have a length of eight characters.</p>
+          </mat-error>
+        </mat-form-field>
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+    <div style="height: 5vh;"></div>
+    <mat-bar-button [options]="barButtonOptions"></mat-bar-button>
+  </form>
+</div>

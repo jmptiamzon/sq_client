@@ -1,0 +1,73 @@
+<div class="jumbotron">
+<div class="container mb-4 mt-4">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" class="float-right mt-2" (click)="addQuestionDialog()">
+      <mat-icon aria-hidden="false" class="mr-2">question_answer</mat-icon>
+      <span>Add Questions</span>
+  </button>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 25%;"> ID </th>
+        <td mat-cell *matCellDef="let row" style="width: 25%;"> {{row.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="question">
+        <th mat-header-cell *matHeaderCellDef style="width: 40%;"> Question </th>
+        <td mat-cell *matCellDef="let row" style="width: 40%;"> {{row.question}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="course">
+        <th mat-header-cell *matHeaderCellDef style="width: 25%;"> Course </th>
+        <td mat-cell *matCellDef="let row" style="width: 25%;">
+          <div *ngIf="row.course_id.includes(',')">
+            <div *ngFor="let item of row.course_id.split(',')">
+              <div *ngFor="let items of course">
+                <div *ngIf="item == items.id">
+                  {{items.course_name}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!row.course_id.includes(',')">
+            <div *ngFor="let item of course">
+              <div *ngIf="row.course_id == item.id">
+                {{item.course_name}}
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef style="width: 25%;">Status</th>
+        <td mat-cell *matCellDef="let row" style="width: 25%;">
+          <ng-container *ngIf="row.status == 1; else elseTemplate">Active</ng-container>
+          <ng-template #elseTemplate>Inactive</ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button matTooltip="Edit item"
+          (click)="editQuestion(row.id, row.question, row.course_id, row.status)">
+             <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>
+</div>

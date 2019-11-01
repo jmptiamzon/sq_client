@@ -1,0 +1,97 @@
+<form [formGroup]="addAdmin" (ngSubmit)="addAdminDialog(addAdmin.value)">
+  <h2 mat-dialog-title>Add Administrators</h2>
+  <mat-dialog-content class="mat-typography">
+      <div class="container">
+        <div class="row">
+          <h3>Personal Information</h3>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="mr-3">
+            <input matInput placeholder="First Name" formControlName="fname" cdkFocusInitial required>
+            <mat-error *ngIf="fname.hasError('required')">
+              First name is required.
+            </mat-error>
+
+            <mat-error *ngIf="fname.hasError('pattern')">
+              First name is not valid.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="mr-3">
+            <input matInput placeholder="Middle Name" formControlName="mname">
+            <mat-error *ngIf="mname.hasError('pattern')">
+              Middle name is not valid.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="mr-3">
+            <input matInput placeholder="Last Name" formControlName="lname" required>
+            <mat-error *ngIf="lname.hasError('required')">
+              Last name is required.
+            </mat-error>
+
+            <mat-error *ngIf="lname.hasError('pattern')">
+              Last name is not valid.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row mt-3">
+          <h3>Account Information</h3>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="mr-3">
+            <input matInput placeholder="User Name" formControlName="uname" required>
+            <mat-error *ngIf="uname.hasError('required')">
+              User name is required.
+            </mat-error>
+
+            <mat-error *ngIf="uname.hasError('minlength')">
+              User name must have a length of six characters.
+            </mat-error>
+
+            <mat-error *ngIf="uname.hasError('maxlength')">
+              User name must have a length of six characters.
+            </mat-error>
+
+            <mat-error *ngIf="uname.hasError('pattern')">
+              User name must only contain alphabet characters.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" formControlName="pword" required>
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="pword.hasError('required')">
+              <p>Password is required.</p>
+            </mat-error>
+
+            <mat-error *ngIf="pword.hasError('minlength')">
+              <p>Password must have a length of eight characters.</p>
+            </mat-error>
+
+            <mat-error *ngIf="pword.hasError('maxlength')">
+              <p>Password must have a length of eight characters.</p>
+            </mat-error>
+
+            <mat-error *ngIf="pword.hasError('pattern')">
+              <p>• Password should contain alteast one uppercase letter.</p>
+              <p>• Password should contain alteast one lowercase letter.</p>
+              <p>• Password should contain alteast one digit.</p>
+              <p>• Password should contain alteast one symbol or space.</p>
+              <p>• Password must have a length of eight characters.</p>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cancel</button>
+    <button type="submit" mat-button>Submit</button>
+  </mat-dialog-actions>
+</form>

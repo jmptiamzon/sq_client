@@ -1,0 +1,64 @@
+<div class="jumbotron">
+  <h1 class="display-4">Hello, {{currentUser.firstname}}!</h1>
+  <p class="lead">This is the configuration page where you can change the status of the application, backup database, and backup database tables.</p>
+  <hr class="my-4">
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Change Application Status
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+    <div [formGroup]="toggleForm">
+      <mat-slide-toggle formControlName="toggleBtn" (click)="changeStatus()">Active</mat-slide-toggle>
+    </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Backup Entire Database
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>Click the button below to backup the application's entire database. <b>The file will be saved on your documents directory.</b></p>
+      <mat-bar-button [options]="barButtonOptions" (click)="backupDB()"></mat-bar-button>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Backup Database Tables
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>Choose from the selection field below on what tables are you going to backup. <b>The file will be saved on your documents directory.</b></p>
+
+      <form [formGroup]="backupTableForm" (ngSubmit)="backupTables(backupTableForm.value)">
+        <mat-form-field style="width: 100% !important;">
+
+          <mat-select placeholder="Database Tables" formControlName="tables" multiple>
+            <mat-select-trigger>
+              {{tables.value ? tables.value[0] : ''}}
+              <span *ngIf="tables.value?.length > 1" class="example-additional-selection">
+              (+{{tables.value.length - 1}} {{tables.value?.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
+
+            <mat-option *ngFor="let table of tableList" [value]="table">{{table}}</mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="tables.hasError('required')">
+            Please choose a table.
+          </mat-error>
+
+        </mat-form-field>
+        <mat-bar-button [options]="barButtonOptions2"></mat-bar-button>
+      </form>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+</div>

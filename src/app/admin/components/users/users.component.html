@@ -1,0 +1,74 @@
+<mat-card>
+  <p><b>Add</b> or <b>Edit</b> administrators or users in this page.</p>
+<mat-tab-group>
+  <mat-tab label="Admin">
+    <div class="container mb-4 mt-4">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="float-right mt-2" (click)="adminDialog()">
+            <mat-icon aria-hidden="false" class="mr-2">group_add</mat-icon>
+            <span>Add Admin</span>
+        </button>
+
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 25%;"> ID </th>
+              <td mat-cell *matCellDef="let row" style="width: 25%;"> {{row.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef style="width: 40%;"> Full Name </th>
+              <td mat-cell *matCellDef="let row" style="width: 40%;"> {{row.firstname + ' ' + (row.middlename !== '' ? row.middlename.substr(0,1) + '. ' : ' ') + row.lastname}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 25%;"> Username </th>
+              <td mat-cell *matCellDef="let row" style="width: 25%;"> {{row.username}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef style="width: 25%;">Status</th>
+              <td mat-cell *matCellDef="let row" style="width: 25%;">
+                <ng-container *ngIf="row.status == 1; else elseTemplate">Active</ng-container>
+                <ng-template #elseTemplate>Inactive</ng-template>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let row">
+                <div *ngIf="row.username !== currentUser">
+                  <button mat-icon-button matTooltip="Edit item"
+                  (click)="editAdmin(row.id, row.firstname, row.middlename, row.lastname, row.username, row.status)">
+                     <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+
+                <div *ngIf="row.username == currentUser">
+                  <button mat-icon-button matTooltip="Edit item" (click)="warn()" disabled>
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Users">
+    this is a filler content
+  </mat-tab>
+
+</mat-tab-group>
+</mat-card>

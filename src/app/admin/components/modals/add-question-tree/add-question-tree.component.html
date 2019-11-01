@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="returnToParent(form.value)">
+  <h2 mat-dialog-title>Choose a question</h2>
+  <mat-dialog-content class="mat-typography">
+    <mat-form-field style="width: 100%;">
+      <mat-label>Questions</mat-label>
+
+      <mat-select formControlName="question">
+        <ng-container *ngFor="let item of questionData">
+          <ng-container *ngIf="data.questionUsed.length == 0; else elseTemplate">
+            <mat-option [value]="item.id" matTooltip="{{item.question}}">
+              {{item.question}}
+            </mat-option>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ng-container *ngIf="!data.questionUsed.includes(item.id)">
+              <mat-option [value]="item.id" matTooltip="{{item.question}}">
+                {{item.question}}
+              </mat-option>
+            </ng-container>
+          </ng-template>
+        </ng-container>
+      </mat-select>
+
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cancel</button>
+    <button type="submit" mat-button>Submit</button>
+  </mat-dialog-actions>
+</form>
