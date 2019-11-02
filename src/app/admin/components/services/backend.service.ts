@@ -18,204 +18,205 @@ import { SchoolTree } from '../modals/choose-school/choose-school.component';
   providedIn: 'root'
 })
 export class BackendService {
+  private url = 'https://ceval.herokuapp.com/';
 
   constructor(private http: HttpClient) { }
   login(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/login', formData, httpOptions);
+    return this.http.post(this.url + 'login', formData, httpOptions);
   }
 
   addAdmin(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/addAdmin', formData, httpOptions);
+    return this.http.post(this.url + 'addAdmin', formData, httpOptions);
   }
 
   addSchool(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/addSchool', formData, httpOptions);
+    return this.http.post(this.url + 'addSchool', formData, httpOptions);
   }
 
   addCourse(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/addCourse', formData, httpOptions);
+    return this.http.post(this.url + 'addCourse', formData, httpOptions);
   }
 
   addQuestion(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/addQuestion', formData, httpOptions);
+    return this.http.post(this.url + 'addQuestion', formData, httpOptions);
   }
 
   addLinearTree(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/addLinearTree', formData, httpOptions);
+    return this.http.post(this.url + 'addLinearTree', formData, httpOptions);
   }
 
   getUserLogs(): Observable<Log> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<Log>('http://localhost:3000/getUserLogs', httpOptions);
+    return this.http.get<Log>(this.url + 'getUserLogs', httpOptions);
   }
 
   getData(): Observable<Admin> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.get<Admin>('http://localhost:3000/getData', httpOptions);
+    return this.http.get<Admin>(this.url + 'getData', httpOptions);
   }
 
   getAppStatus() {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.get('http://localhost:3000/getAppStatus', httpOptions);
+    return this.http.get(this.url + 'getAppStatus', httpOptions);
   }
 
   getDataSchool(): Observable<School> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<School>('http://localhost:3000/getDataSchool', httpOptions);
+    return this.http.get<School>(this.url + 'getDataSchool', httpOptions);
   }
 
   getDataSchoolModal(): Observable<SchoolModal> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<SchoolModal>('http://localhost:3000/getDataSchool', httpOptions);
+    return this.http.get<SchoolModal>(this.url + 'getDataSchool', httpOptions);
   }
 
   getDataCourse(): Observable<Course> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<Course>('http://localhost:3000/getDataCourse', httpOptions);
+    return this.http.get<Course>(this.url + 'getDataCourse', httpOptions);
   }
 
   getDataCourseModal(): Observable<CourseModal> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<CourseModal>('http://localhost:3000/getDataCourse', httpOptions);
+    return this.http.get<CourseModal>(this.url + 'getDataCourse', httpOptions);
   }
 
   getDataQuestion(): Observable<Question> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.get<Question>('http://localhost:3000/getDataQuestion', httpOptions);
+    return this.http.get<Question>(this.url + 'getDataQuestion', httpOptions);
   }
 
   getDataQuestionCourse(): Observable<CourseQ> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<CourseQ>('http://localhost:3000/getDataCourse', httpOptions);
+    return this.http.get<CourseQ>(this.url + 'getDataCourse', httpOptions);
   }
 
   getDataQuestionEditCourse(): Observable<CourseEditModal> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<CourseEditModal>('http://localhost:3000/getDataCourse', httpOptions);
+    return this.http.get<CourseEditModal>(this.url + 'getDataCourse', httpOptions);
   }
 
   getCourseTree(): Observable<CourseTree> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<CourseTree>('http://localhost:3000/getDataCourse', httpOptions);
+    return this.http.get<CourseTree>(this.url + 'getDataCourse', httpOptions);
   }
 
   getAddCourseTree(): Observable<AddCourseTree> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<AddCourseTree>('http://localhost:3000/getDataCourse', httpOptions);
+    return this.http.get<AddCourseTree>(this.url + 'getDataCourse', httpOptions);
   }
 
   getQuestionTree(): Observable<QuestionTree> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.get<QuestionTree>('http://localhost:3000/getDataQuestion', httpOptions);
+    return this.http.get<QuestionTree>(this.url + 'getDataQuestion', httpOptions);
   }
 
   getAddQuestionTree(): Observable<AddQuestionTree> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.get<AddQuestionTree>('http://localhost:3000/getDataQuestion', httpOptions);
+    return this.http.get<AddQuestionTree>(this.url + 'getDataQuestion', httpOptions);
   }
 
   getSchoolTree(): Observable<SchoolTree> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<SchoolTree>('http://localhost:3000/getDataSchool', httpOptions);
+    return this.http.get<SchoolTree>(this.url + 'getDataSchool', httpOptions);
   }
 
   getSchoolTreeParent(): Observable<SchoolTreeParent> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<SchoolTreeParent>('http://localhost:3000/getDataSchool', httpOptions);
+    return this.http.get<SchoolTreeParent>(this.url + 'getDataSchool', httpOptions);
   }
 
   getAddSchoolTree(): Observable<AddSchoolTree> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<AddSchoolTree>('http://localhost:3000/getDataSchool', httpOptions);
+    return this.http.get<AddSchoolTree>(this.url + 'getDataSchool', httpOptions);
   }
 
   getCurrentUser(id: number) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get('http://localhost:3000/getCurrentUser/' + id, httpOptions);
+    return this.http.get(this.url + 'getCurrentUser/' + id, httpOptions);
   }
 
   updateAdmin(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/updateAdmin', formData, httpOptions);
+    return this.http.post(this.url + 'updateAdmin', formData, httpOptions);
   }
 
   updateSchool(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/updateSchool', formData, httpOptions);
+    return this.http.post(this.url + 'updateSchool', formData, httpOptions);
   }
 
   updateCourse(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/updateCourse', formData, httpOptions);
+    return this.http.post(this.url + 'updateCourse', formData, httpOptions);
   }
 
   updateCurrentUser(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/updateCurrentUser', formData, httpOptions);
+    return this.http.post(this.url + 'updateCurrentUser', formData, httpOptions);
   }
 
   updateAppStatus(status: boolean) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.get('http://localhost:3000/updateAppStatus/' + status, httpOptions);
+    return this.http.get(this.url + 'updateAppStatus/' + status, httpOptions);
   }
 
   updateQuestion(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/updateQuestion', formData, httpOptions);
+    return this.http.post(this.url + 'updateQuestion', formData, httpOptions);
   }
 
   backupDB() {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.get('http://localhost:3000/backupDB', httpOptions);
+    return this.http.get(this.url + 'backupDB', httpOptions);
   }
 
   backupTables(formData: any) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
-    return this.http.post('http://localhost:3000/backupTables', formData, httpOptions);
+    return this.http.post(this.url + 'backupTables', formData, httpOptions);
   }
 
   updateLogs(cond: number, update: number) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const obj = JSON.parse(localStorage.getItem('currentUser'));
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get('http://localhost:3000/updateLogs/' + update + '/' + cond + '/' + obj.username + '/' + obj.id, httpOptions);
+    return this.http.get(this.url + 'updateLogs/' + update + '/' + cond + '/' + obj.username + '/' + obj.id, httpOptions);
   }
 }
