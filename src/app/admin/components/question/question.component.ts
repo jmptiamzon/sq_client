@@ -24,8 +24,8 @@ export interface CourseQ {
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit, OnDestroy {
-  private querySubscription: any;
-  private course: any;
+  querySubscription: any;
+  course: any;
 
   displayedColumns: string[] = ['id', 'question', 'course', 'status', 'actions'];
   dataSource = new MatTableDataSource<Question>();

@@ -11,14 +11,14 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
   styleUrls: ['./config.component.css']
 })
 export class ConfigComponent implements OnInit, OnDestroy {
-  private currentUser: any;
-  private checked = true;
-  private toggleForm: any;
-  private querySubscription: any;
-  private cond: string;
-  private backupTableForm: any;
-  private tableList: string[] = ['tbladmin', 'tblusers', 'tblschool', 'tblcourse', 'tblquestion', 'tblappstatus'];
-  private barButtonOptions: MatProgressButtonOptions = {
+  currentUser: any;
+  checked = true;
+  toggleForm: any;
+  querySubscription: any;
+  cond: string;
+  backupTableForm: any;
+  tableList: string[] = ['tbladmin', 'tblusers', 'tblschool', 'tblcourse', 'tblquestion', 'tblappstatus'];
+  barButtonOptions: MatProgressButtonOptions = {
     active: false,
     text: 'Backup Database',
     buttonColor: 'primary',
@@ -31,7 +31,7 @@ export class ConfigComponent implements OnInit, OnDestroy {
     fullWidth: true,
   };
 
-  private barButtonOptions2: MatProgressButtonOptions = {
+  barButtonOptions2: MatProgressButtonOptions = {
     active: false,
     text: 'Backup Selected Tables',
     buttonColor: 'primary',

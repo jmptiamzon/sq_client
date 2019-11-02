@@ -22,8 +22,8 @@ export interface Admin {
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit, OnDestroy {
-  private querySubscription: any;
-  private currentUser: string;
+  querySubscription: any;
+  currentUser: string;
 
   displayedColumns: string[] = ['id', 'name', 'username', 'status', 'actions'];
   dataSource = new MatTableDataSource<Admin>();

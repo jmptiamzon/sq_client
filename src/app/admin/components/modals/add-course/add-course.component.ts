@@ -18,8 +18,8 @@ export interface SchoolModal {
   styleUrls: ['./add-course.component.css']
 })
 export class AddCourseComponent implements OnInit, OnDestroy {
-  private querySubscription: any;
-  private schools: any;
+  querySubscription: any;
+  schools: any;
   addCourseForm: any;
 
   constructor(

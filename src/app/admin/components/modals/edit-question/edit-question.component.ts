@@ -17,9 +17,9 @@ export interface CourseEditModal {
   styleUrls: ['./edit-question.component.css']
 })
 export class EditQuestionComponent implements OnInit, OnDestroy {
-  private editQuestionForm: any;
-  private querySubscription: any;
-  private courseData: any;
+  editQuestionForm: any;
+  querySubscription: any;
+  courseData: any;
 
   constructor(
     private getSet: GetsetService,

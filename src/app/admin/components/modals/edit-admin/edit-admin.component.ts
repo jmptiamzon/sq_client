@@ -14,7 +14,7 @@ export class EditAdminComponent implements OnInit, OnDestroy {
   hide = true;
   updateForm: any;
   formValues: any[];
-  private querySubscription: any;
+  querySubscription: any;
 
   constructor(
     private getSet: GetsetService,

@@ -12,7 +12,7 @@ import { BackendService } from '../../services/backend.service';
 export class EditSchoolComponent implements OnInit, OnDestroy {
   editSchoolForm: any;
   formValues: any[];
-  private querySubscription: any;
+  querySubscription: any;
 
   constructor(
     private getSet: GetsetService,

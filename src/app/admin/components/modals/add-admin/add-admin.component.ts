@@ -12,7 +12,7 @@ import { MatDialogRef, MatSnackBar } from '@angular/material';
 export class AddAdminComponent implements OnInit, OnDestroy {
   hide = true;
   addAdmin: any;
-  private querySubscription: any;
+  querySubscription: any;
 
   constructor(
     private formBuilder: FormBuilder,

@@ -7,8 +7,8 @@ import { GetsetService } from '../services/getset.service';
   styleUrls: ['./help.component.css']
 })
 export class HelpComponent implements OnInit {
-  private currentUser: any;
-  private isLinear = false;
+  currentUser: any;
+  isLinear = false;
 
   constructor(
     private getSet: GetsetService,

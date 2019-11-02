@@ -32,14 +32,14 @@ export interface AddSchoolTree {
   styleUrls: ['./add-question-tree.component.css']
 })
 export class AddQuestionTreeComponent implements OnInit, OnDestroy {
-  private form: any;
-  private querySubscription: any;
-  private questionData: any;
-  private courseData: any;
-  private schoolData: any;
-  private ids: number[];
-  private flag = false;
-  private ctr = 0;
+  form: any;
+  querySubscription: any;
+  questionData: any;
+  courseData: any;
+  schoolData: any;
+  ids: number[];
+  flag = false;
+  ctr = 0;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,

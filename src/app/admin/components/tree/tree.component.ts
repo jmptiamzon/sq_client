@@ -36,20 +36,20 @@ export interface CourseTree {
   styleUrls: ['./tree.component.css']
 })
 export class TreeComponent implements OnInit, OnDestroy {
-  private querySubscription: any;
+  querySubscription: any;
   isLinear = true;
-  private hide = false;
-  private hide2 = false;
-  private form: any;
-  private course: any;
-  private questionData: any;
-  private ctr = 0;
-  private chosenSchool: string;
-  private school: any;
-  private schoolId: number;
-  private chosenQuestions: string[] = [];
+  hide = false;
+  hide2 = false;
+  form: any;
+  course: any;
+  questionData: any;
+  ctr = 0;
+  chosenSchool: string;
+  school: any;
+  schoolId: number;
+  chosenQuestions: string[] = [];
 
-  private barButtonOptions: MatProgressButtonOptions = {
+  barButtonOptions: MatProgressButtonOptions = {
     active: false,
     text: 'Submit',
     buttonColor: 'primary',

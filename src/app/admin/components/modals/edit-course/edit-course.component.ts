@@ -12,8 +12,8 @@ import { BackendService } from '../../services/backend.service';
 export class EditCourseComponent implements OnInit, OnDestroy {
   editCourseForm: any;
   formValues: any[];
-  private querySubscription: any;
-  private schools: any;
+  querySubscription: any;
+  schools: any;
   // private test: string[] = ['1', '2'];
 
   constructor(

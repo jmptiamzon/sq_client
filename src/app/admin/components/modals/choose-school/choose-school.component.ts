@@ -17,9 +17,9 @@ export interface SchoolTree {
   styleUrls: ['./choose-school.component.css']
 })
 export class ChooseSchoolComponent implements OnInit, OnDestroy {
-  private schoolData: any;
-  private form: any;
-  private querySubscription: any;
+  schoolData: any;
+  form: any;
+  querySubscription: any;
 
   constructor(
     private backendService: BackendService,

@@ -15,7 +15,7 @@ export interface Log {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  private querySubscription: any;
+  querySubscription: any;
 
   displayedColumns: string[] = ['id', 'user', 'msg', 'timestamp'];
   dataSource = new MatTableDataSource<Log>();

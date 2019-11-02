@@ -11,13 +11,13 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit, OnDestroy {
-  private hide = true;
-  private panelOpenState = false;
-  private currentUser: any;
-  private accountForm: any;
-  private querySubscription: any;
+  hide = true;
+  panelOpenState = false;
+  currentUser: any;
+  accountForm: any;
+  querySubscription: any;
 
-  private barButtonOptions: MatProgressButtonOptions = {
+  barButtonOptions: MatProgressButtonOptions = {
     active: false,
     text: 'Submit',
     buttonColor: 'primary',

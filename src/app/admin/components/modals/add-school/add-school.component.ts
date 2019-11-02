@@ -11,7 +11,7 @@ import { MatSnackBar, MatDialogRef } from '@angular/material';
 })
 export class AddSchoolComponent implements OnInit, OnDestroy {
   addSchoolForm: any;
-  private querySubscription: any;
+  querySubscription: any;
 
   constructor(
     private formBuilder: FormBuilder,

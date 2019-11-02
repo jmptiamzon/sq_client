@@ -14,24 +14,24 @@ import { CourseEditModal } from '../modals/edit-question/edit-question.component
   providedIn: 'root'
 })
 export class GetsetService implements OnDestroy {
-  private querySubscription;
-  private error = false;
-  private errorMessage = '';
-  private dataLoading = false;
-  public adminData: any[];
-  public schoolData: any[];
-  public courseData: any[];
-  public questionData: any[];
-  public appTitle = 'Dashboard';
-  public changeTableValueLog: Subject<Log> = new Subject<Log>();
-  public changeTableValue: Subject<Admin> = new Subject<Admin>();
-  public changeTableValueSchool: Subject<School> = new Subject<School>();
-  public changeTableValueSchoolModal: Subject<SchoolModal> = new Subject<SchoolModal>();
-  public changeTableValueCourse: Subject<Course> = new Subject<Course>();
-  public changeTableValueCourseModal: Subject<CourseModal> = new Subject<CourseModal>();
-  public changeTableValueCourseEditModal: Subject<CourseEditModal> = new Subject<CourseEditModal>();
-  public changeTableValueQuestion: Subject<Question> = new Subject<Question>();
-  public changeTableValueQuestionCourse: Subject<CourseQ> = new Subject<CourseQ>();
+  querySubscription;
+  error = false;
+  errorMessage = '';
+  dataLoading = false;
+  adminData: any[];
+  schoolData: any[];
+  courseData: any[];
+  questionData: any[];
+  appTitle = 'Dashboard';
+  changeTableValueLog: Subject<Log> = new Subject<Log>();
+  changeTableValue: Subject<Admin> = new Subject<Admin>();
+  changeTableValueSchool: Subject<School> = new Subject<School>();
+  changeTableValueSchoolModal: Subject<SchoolModal> = new Subject<SchoolModal>();
+  changeTableValueCourse: Subject<Course> = new Subject<Course>();
+  changeTableValueCourseModal: Subject<CourseModal> = new Subject<CourseModal>();
+  changeTableValueCourseEditModal: Subject<CourseEditModal> = new Subject<CourseEditModal>();
+  changeTableValueQuestion: Subject<Question> = new Subject<Question>();
+  changeTableValueQuestionCourse: Subject<CourseQ> = new Subject<CourseQ>();
 
   constructor(
     private backendService: BackendService,

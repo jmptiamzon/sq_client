@@ -8,7 +8,7 @@ import { MatSnackBar, MatDialogRef } from '@angular/material';
   styleUrls: ['./add-multiple.component.css']
 })
 export class AddMultipleComponent implements OnInit {
-  private form: any;
+  form: any;
 
   constructor(
     private formBuilder: FormBuilder,

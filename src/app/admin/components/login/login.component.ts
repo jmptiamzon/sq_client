@@ -16,23 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   adminLogin;
   hide = true;
 
-  constructor(
-    private titleService: Title,
-    private backendService: BackendService,
-    private getSet: GetsetService,
-    private route: Router,
-    private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar,
-    ) {
-      this.titleService.setTitle('Admin Login');
-
-      this.adminLogin = this.formBuilder.group({
-        uname: new FormControl('', [Validators.required]),
-        pword: new FormControl('', [Validators.required])
-      });
-  }
-
-  private querySubscription;
+  querySubscription;
   error = false;
   errorMessage = '';
   dataLoading = false;
@@ -49,6 +33,22 @@ export class LoginComponent implements OnInit, OnDestroy {
     disabled: false,
     fullWidth: true,
   };
+
+  constructor(
+    private titleService: Title,
+    private backendService: BackendService,
+    private getSet: GetsetService,
+    private route: Router,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
+    ) {
+      this.titleService.setTitle('Admin Login');
+
+      this.adminLogin = this.formBuilder.group({
+        uname: new FormControl('', [Validators.required]),
+        pword: new FormControl('', [Validators.required])
+      });
+  }
 
   errorSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {

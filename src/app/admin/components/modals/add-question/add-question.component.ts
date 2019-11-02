@@ -17,9 +17,9 @@ export interface CourseModal {
   styleUrls: ['./add-question.component.css']
 })
 export class AddQuestionComponent implements OnInit, OnDestroy {
-  private addQuestionForm: any;
-  private querySubscription: any;
-  private courseData: any;
+  addQuestionForm: any;
+  querySubscription: any;
+  courseData: any;
 
   constructor(
     private formBuilder: FormBuilder,
