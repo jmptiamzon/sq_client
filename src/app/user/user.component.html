@@ -1,36 +1,44 @@
-<!--Navbar-->
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark cyan" [containerInside]="false">
+<header>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-md">
+      <a class="navbar-brand" href="https://www.froala.com">
+        <!-- <img src="./assets/imgs/logo.png" height="30" alt="image"> -->
+        Logo Here
+      </a>
 
-  <!-- Navbar brand -->
-  <mdb-navbar-brand><a class="navbar-brand" href="#">Navbar</a></mdb-navbar-brand>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav3" aria-controls="navbarNav3" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <!-- Collapsible content -->
-  <links>
+      <div class="collapse navbar-collapse" id="navbarNav3">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://www.froala.com">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.froala.com">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.froala.com">Features</a>
+          </li>
 
-    <!-- Links -->
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link waves-light" mdbWavesEffect><mdb-icon fas icon="envelope"></mdb-icon> Contact<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link waves-light" mdbWavesEffect><mdb-icon fas icon="cog"></mdb-icon> Settings</a>
-      </li>
+          <a class="btn btn-outline-primary ml-md-3" href="https://www.froala.com">Take Assessment</a>
+        </ul>
 
-      <!-- Dropdown -->
-      <li class="nav-item dropdown" dropdown>
-        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-          <mdb-icon fas icon="user"></mdb-icon> Profile<span class="caret"></span></a>
-        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">My account</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Log out</a>
-        </div>
-      </li>
+      </div>
+    </nav>
+  </div>
+</header>
 
-    </ul>
-    <!-- Links -->
-  </links>
-  <!-- Collapsible content -->
-
-</mdb-navbar>
-<!--/.Navbar-->
 <router-outlet></router-outlet>
+
+<footer class="fdb-block footer-small">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col">
+        <p>© 2019 Chupols. All Rights Reserved</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
