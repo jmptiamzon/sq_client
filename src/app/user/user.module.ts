@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 import { HomeModule } from './components/home/home.module';
 import { UserComponent } from './user.component';
-import { NavbarModule, WavesModule, ButtonsModule, IconsModule } from 'angular-bootstrap-md';
-import { DropdownModule } from 'angular-bootstrap-md';
+import { AboutModule } from './components/about/about.module';
+import { AssessmentModule } from './components/assessment/assessment.module';
+import { FeatureModule } from './components/feature/feature.module';
 
 @NgModule({
   declarations: [
@@ -14,11 +15,9 @@ import { DropdownModule } from 'angular-bootstrap-md';
     CommonModule,
     UserRoutingModule,
     HomeModule,
-    NavbarModule,
-    WavesModule,
-    ButtonsModule,
-    IconsModule,
-    DropdownModule.forRoot(),
+    AboutModule,
+    AssessmentModule,
+    FeatureModule,
   ]
 })
 export class UserModule { }
