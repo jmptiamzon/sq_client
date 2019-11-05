@@ -18,7 +18,8 @@ import { SchoolTree } from '../modals/choose-school/choose-school.component';
   providedIn: 'root'
 })
 export class BackendService {
-  url = 'https://ceval.herokuapp.com/';
+  // url = 'https://ceval.herokuapp.com/';
+  url = 'http://localhost:3000/';
 
   constructor(private http: HttpClient) { }
   login(formData: any) {

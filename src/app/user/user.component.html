@@ -1,4 +1,4 @@
-<header>
+<header class="bg-dark">
   <div class="container-fluid">
     <nav class="navbar navbar-expand-md">
       <a class="navbar-brand" routerLink="/">
@@ -13,7 +13,7 @@
       <div class="collapse navbar-collapse" id="navbarNav3">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" routerLink="/">Home <!--<span class="sr-only">(current)</span>--></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/about">About</a>
@@ -32,13 +32,31 @@
 
 <router-outlet></router-outlet>
 
-<footer class="fdb-block footer-small">
+<footer class="fdb-block footer-small bg-dark">
   <div class="container">
-    <div class="row text-center">
-      <div class="col">
-        <p>© 2019 Chupols. All Rights Reserved</p>
+    <div class="row align-items-center">
+      <div class="col-12 col-md-8">
+        <ul class="nav justify-content-center justify-content-md-start">
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.froala.com">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.froala.com">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.froala.com">Terms</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.froala.com">About</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
+        © 2019 Chupols. All Rights Reserved
       </div>
     </div>
   </div>
 </footer>
+
 
