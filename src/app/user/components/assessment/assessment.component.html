@@ -2,3 +2,60 @@
   {{item.question}}
 </ng-container>
 
+<section class="fdb-block" style="background-image: url('./assets/imgs/shapes/1.svg');">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col col-md-8 text-center">
+        <h1>Assessment</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+    <mat-card style="margin-top: 5vh; margin-bottom: 5vh;">
+      <p style="color: black;">Before we start the assessment, we need you to fill-up the fields below.</p>
+
+      <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+        <mat-form-field style="width: 60vh;">
+          <input matInput placeholder="Full name" formControlName="fname" required>
+          <mat-error *ngIf="fname.hasError('required')">
+            Full name field is required.
+          </mat-error>
+
+          <mat-error *ngIf="fname.hasError('pattern')">
+            Full name is not valid.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field style="width: 60vh;">
+          <input matInput placeholder="Email" formControlName="email" required>
+          <mat-error *ngIf="email.hasError('required')">
+            Email field is required.
+          </mat-error>
+
+          <mat-error *ngIf="email.hasError('email')">
+            Email pattern incorrect.
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field style="width: 60vh;">
+          <input matInput placeholder="Family Annual Income" formControlName="income" required>
+          <mat-error *ngIf="income.hasError('required')">
+            Family annual income field is required.
+          </mat-error>
+
+          <mat-error *ngIf="income.hasError('pattern')">
+            Family annual income is not valid.
+          </mat-error>
+        </mat-form-field>
+        <br><br>
+        <button type="submit" class="btn btn-success" style="width: 60vh;">Submit</button>
+      </form>
+    </mat-card>
+
+    <mat-card style="margin-top: 5vh; margin-bottom: 5vh;">
+      Questions Here
+    </mat-card>
+
+</div>

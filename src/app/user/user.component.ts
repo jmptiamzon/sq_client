@@ -18,4 +18,9 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  changePage(url: string) {
+    this.router.navigate([url]);
+    window.scrollTo(0, 0);
+  }
 }

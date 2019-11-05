@@ -6,6 +6,7 @@ import { UserComponent } from './user.component';
 import { AboutModule } from './components/about/about.module';
 import { AssessmentModule } from './components/assessment/assessment.module';
 import { FeatureModule } from './components/feature/feature.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { FeatureModule } from './components/feature/feature.module';
   imports: [
     CommonModule,
     UserRoutingModule,
+    RouterModule,
     HomeModule,
     AboutModule,
     AssessmentModule,

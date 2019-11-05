@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BackendService } from '../services/backend.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-assessment',
@@ -17,6 +17,11 @@ export class AssessmentComponent implements OnInit, OnDestroy {
     private backendService: BackendService,
     private formBuilder: FormBuilder,
   ) {
+    this.form = this.formBuilder.group({
+      fname: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ,.\'-]+$')]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      income: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
+    });
     /*
     this.backendService.getAssessmentQuestions().subscribe((res) => {
       this.questions = res["data"];
@@ -28,6 +33,24 @@ export class AssessmentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+  }
+
+  submitForm(formData: any) {
+    if (!this.form.invalid) {
+      console.log(formData);
+    }
+  }
+
+  get fname() {
+    return this.form.get('fname');
+  }
+
+  get email() {
+    return this.form.get('email');
+  }
+
+  get income() {
+    return this.form.get('income');
   }
 
   ngOnDestroy() {
