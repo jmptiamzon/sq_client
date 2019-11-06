@@ -20,6 +20,18 @@ export class BackendService {
   getAssessmentCourse() {
     // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.get(this.url + 'getAssessmentQuestions', httpOptions);
+    return this.http.get(this.url + 'getAssessmentCourse', httpOptions);
+  }
+
+  getAssessmentSchool() {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get(this.url + 'getAssessmentSchool', httpOptions);
+  }
+
+  addUser(formData: any) {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.url + 'addUser', formData, httpOptions);
   }
 }
