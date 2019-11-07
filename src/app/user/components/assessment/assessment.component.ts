@@ -22,6 +22,7 @@ export class AssessmentComponent implements OnInit, OnDestroy {
   disableBtn = false;
   disableBtnS = false;
   annualIncome = 0;
+  resultsHidden = true;
   userId: any;
 
   constructor(
@@ -96,6 +97,7 @@ export class AssessmentComponent implements OnInit, OnDestroy {
     let flag = true;
     const courseQuestion = [];
     const results = [];
+    const courseRank = [];
 
     if (!this.questionForm.invalid) {
       this.questions.forEach(element => {
@@ -117,38 +119,40 @@ export class AssessmentComponent implements OnInit, OnDestroy {
       while (flag) {
         courseQuestion.forEach(element => {
           if (this.questionForm.get('userAnswer' + element.question_id).value === 'SA') {
-            if (results.length === 0) {
-              results[element.course_id] = {};
-              results[element.course_id].sa = 1;
-              console.log('ok');
+            if (!results[element.course_id]) {
+              results[element.course_id] = {course_id: element.course_id, sa: 1};
             } else {
-              results[element.course_id].sa += 1;
+              if (isNaN(results[element.course_id].sa)) {
+                results[element.course_id].sa = 1;
+              } else {
+                results[element.course_id].sa += 1;
+              }
             }
           } else if (this.questionForm.get('userAnswer' + element.question_id).value === 'A') {
-            if (results.length === 0) {
-              results[element.course_id] = {};
-              results[element.course_id] = {a: 1};
+            if (!results[element.course_id]) {
+              results[element.course_id] = {course_id: element.course_id, a: 1};
             } else {
-              results[element.course_id].a += 1;
+              if (isNaN(results[element.course_id].a)) {
+                results[element.course_id].a = 1;
+              } else {
+                results[element.course_id].a += 1;
+              }
             }
           } else if (this.questionForm.get('userAnswer' + element.question_id).value === 'NAD') {
-            if (results.length === 0) {
-              results[element.course_id] = {};
-              results[element.course_id] = {nad: 1};
+            if (!results[element.course_id]) {
+              results[element.course_id] = {course_id: element.course_id, nad: 1};
             } else {
               results[element.course_id].nad += 1;
             }
           } else if (this.questionForm.get('userAnswer' + element.question_id).value === 'D') {
-            if (results.length === 0) {
-              results[element.course_id] = {};
-              results[element.course_id] = {d: 1};
+            if (!results[element.course_id]) {
+              results[element.course_id] = {course_id: element.course_id, d: 1};
             } else {
               results[element.course_id].d += 1;
             }
           } else {
-            if (results.length === 0) {
-              results[element.course_id] = {};
-              results[element.course_id] = {sd: 1};
+            if (!results[element.course_id]) {
+              results[element.course_id] = {course_id: element.course_id, sd: 1};
             } else {
               results[element.course_id].sd += 1;
             }
@@ -158,7 +162,9 @@ export class AssessmentComponent implements OnInit, OnDestroy {
         flag = false;
       }
 
-      console.log(results);
+      console.log(Object.keys(results));
+
+      this.resultsHidden = false;
     }
   }
 
