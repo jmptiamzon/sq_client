@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BackendService } from '../services/backend.service';
 import { FormBuilder, Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import * as CanvasJS from '../../../../assets/js/canvasjs.min.js';
 
 @Component({
   selector: 'app-assessment',
@@ -21,9 +22,11 @@ export class AssessmentComponent implements OnInit, OnDestroy {
   chosenSchool: any;
   disableBtn = false;
   disableBtnS = false;
+  disableBtnQ = false;
   annualIncome = 0;
   resultsHidden = true;
   userId: any;
+  dPoints = [];
 
   constructor(
     private backendService: BackendService,
@@ -59,8 +62,7 @@ export class AssessmentComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   submitForm(formData: any) {
     if (!this.form.invalid) {
@@ -97,9 +99,10 @@ export class AssessmentComponent implements OnInit, OnDestroy {
     let flag = true;
     const courseQuestion = [];
     const results = [];
-    const courseRank = [];
+    const finalResults = [];
 
     if (!this.questionForm.invalid) {
+
       this.questions.forEach(element => {
         element.course_id.split(',').forEach(elem => {
           this.course.forEach(ele => {
@@ -120,51 +123,78 @@ export class AssessmentComponent implements OnInit, OnDestroy {
         courseQuestion.forEach(element => {
           if (this.questionForm.get('userAnswer' + element.question_id).value === 'SA') {
             if (!results[element.course_id]) {
-              results[element.course_id] = {course_id: element.course_id, sa: 1};
+              results[element.course_id] = {course_id: element.course_id, total: 5};
             } else {
-              if (isNaN(results[element.course_id].sa)) {
-                results[element.course_id].sa = 1;
+              if (isNaN(results[element.course_id].total)) {
+                results[element.course_id].total = 5;
               } else {
-                results[element.course_id].sa += 1;
+                results[element.course_id].total += 5;
               }
             }
           } else if (this.questionForm.get('userAnswer' + element.question_id).value === 'A') {
             if (!results[element.course_id]) {
-              results[element.course_id] = {course_id: element.course_id, a: 1};
+              results[element.course_id] = {course_id: element.course_id, total: 4};
             } else {
-              if (isNaN(results[element.course_id].a)) {
-                results[element.course_id].a = 1;
+              if (isNaN(results[element.course_id].total)) {
+                results[element.course_id].total = 4;
               } else {
-                results[element.course_id].a += 1;
+                results[element.course_id].total += 4;
               }
             }
           } else if (this.questionForm.get('userAnswer' + element.question_id).value === 'NAD') {
             if (!results[element.course_id]) {
-              results[element.course_id] = {course_id: element.course_id, nad: 1};
+              results[element.course_id] = {course_id: element.course_id, total: 3};
             } else {
-              results[element.course_id].nad += 1;
+              results[element.course_id].total += 3;
             }
           } else if (this.questionForm.get('userAnswer' + element.question_id).value === 'D') {
             if (!results[element.course_id]) {
-              results[element.course_id] = {course_id: element.course_id, d: 1};
+              results[element.course_id] = {course_id: element.course_id, total: 2};
             } else {
-              results[element.course_id].d += 1;
+              results[element.course_id].total += 2;
             }
           } else {
             if (!results[element.course_id]) {
-              results[element.course_id] = {course_id: element.course_id, sd: 1};
+              results[element.course_id] = {course_id: element.course_id, total: 1};
             } else {
-              results[element.course_id].sd += 1;
+              results[element.course_id].total += 1;
             }
           }
         });
 
         flag = false;
       }
+      flag = true;
 
-      console.log(Object.keys(results));
+      this.disableBtnQ = true;
 
-      this.resultsHidden = false;
+      this.questions.forEach(element => {
+        this.questionForm.get('userAnswer' + i).disable();
+        i += 1;
+      });
+
+      results.forEach(element => {
+        finalResults.push(element);
+      });
+
+      finalResults.sort((a, b) => {
+        return b.total - a.total;
+      });
+
+      finalResults.forEach(element => {
+        this.course.forEach(ele => {
+          if (Number(ele.id) === Number(element.course_id)) {
+            element.course_name = ele.course_name;
+          }
+        });
+      });
+
+      finalResults.forEach(element => {
+        this.dPoints.push({y: element.total, label: element.course_name});
+      });
+
+      // this.resultsHidden = false;
+      this.renderChart();
     }
   }
 
@@ -214,6 +244,28 @@ export class AssessmentComponent implements OnInit, OnDestroy {
 
   get selectedSchool() {
     return this.schoolForm.get('selectedSchool');
+  }
+
+  renderChart() {
+    document.getElementById('chartContainer').style.display = 'block';
+
+    const chart = new CanvasJS.Chart('chartContainer', {
+      animationEnabled: true,
+      exportEnabled: true,
+      title: {
+        text: 'Chosen School: ' + this.findById(this.chosenSchool)
+      },
+      data: [{
+        type: 'column',
+        dataPoints: this.dPoints
+      }]
+    });
+
+    chart.render();
+  }
+
+  findById(id: number) {
+    return this.questions.find((x: any) => x.id === id).school_name;
   }
 
   openSnackbar(msg: string) {
