@@ -37,12 +37,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     private getSet: GetsetService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-  ) { }
-
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
+  ) {
     this.getSet.getDataQuestion();
     this.getSet.getDataQuestionCourse();
 
@@ -56,6 +51,11 @@ export class QuestionComponent implements OnInit, OnDestroy {
     });
 
     this.getSet.appTitle = 'Configuration';
+  }
+
+  ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {

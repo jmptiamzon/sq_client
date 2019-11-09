@@ -11,10 +11,12 @@ import { QuestionModule } from './question/question.module';
 import { SchoolModule } from './school/school.module';
 import { TreeModule } from './tree/tree.module';
 import { MainComponent } from './main.component';
+import { UsertblComponent } from './tables/usertbl/usertbl.component';
 
 @NgModule({
   declarations: [
     MainComponent,
+    UsertblComponent,
   ],
   imports: [
     CommonModule,

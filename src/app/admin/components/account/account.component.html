@@ -1,7 +1,7 @@
-<div class="jumbotron">
-  <h1 class="display-4">Hello, {{currentUser.firstname}}!</h1>
-  <p class="lead">This is your account page wherein you can update your personal data and account information used in this page.</p>
-  <hr class="my-4">
+<mat-card>
+  <p style="font-size: 12px;">Update account details</p>
+  <h2 style="margin-top: -3vh;">My Account</h2>
+  <hr>
 
   <form [formGroup]="accountForm" (ngSubmit)="editAccount(accountForm.value)">
     <mat-accordion class="headers-align">
@@ -110,4 +110,4 @@
     <div style="height: 5vh;"></div>
     <mat-bar-button [options]="barButtonOptions"></mat-bar-button>
   </form>
-</div>
+</mat-card>

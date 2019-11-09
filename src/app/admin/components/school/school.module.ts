@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AddSchoolComponent } from '../modals/add-school/add-school.component';
 import { EditSchoolComponent } from '../modals/edit-school/edit-school.component';
@@ -37,6 +38,7 @@ import { EditSchoolComponent } from '../modals/edit-school/edit-school.component
     MatTooltipModule,
     MatDialogModule,
     MatSlideToggleModule,
+    MatCardModule,
   ],
   exports: [
     SchoolComponent,

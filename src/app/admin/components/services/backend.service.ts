@@ -12,6 +12,7 @@ import { CourseEditModal } from '../modals/edit-question/edit-question.component
 import { CourseTree, QuestionTree, SchoolTreeParent } from '../tree/tree.component';
 import { AddQuestionTree, AddCourseTree, AddSchoolTree } from '../modals/add-question-tree/add-question-tree.component';
 import { SchoolTree } from '../modals/choose-school/choose-school.component';
+import { User } from '../tables/usertbl/usertbl.component';
 // import 'rxjs/add/operator/map';
 
 @Injectable({
@@ -220,4 +221,29 @@ export class BackendService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
     return this.http.get(this.url + 'updateLogs/' + update + '/' + cond + '/' + obj.username + '/' + obj.id, httpOptions);
   }
+
+  getUserCount() {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get(this.url + 'getUserCount', httpOptions);
+  }
+
+  getAdminCount() {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get(this.url + 'getAdminCount', httpOptions);
+  }
+
+  getDbUpdate() {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get(this.url + 'getDbUpdate', httpOptions);
+  }
+
+  getUsers(): Observable<User> {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get<User>(this.url + 'getUsers', httpOptions);
+  }
+
 }

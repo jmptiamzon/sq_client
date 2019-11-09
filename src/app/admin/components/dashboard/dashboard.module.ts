@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -25,6 +26,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSortModule,
     MatIconModule,
     MatSnackBarModule,
+    MatCardModule,
   ],
   exports: [
     DashboardComponent,

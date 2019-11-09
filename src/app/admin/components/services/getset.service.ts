@@ -9,6 +9,7 @@ import { Log } from '../dashboard/dashboard.component';
 import { Question, CourseQ } from '../question/question.component';
 import { CourseModal } from '../modals/add-question/add-question.component';
 import { CourseEditModal } from '../modals/edit-question/edit-question.component';
+import { User } from '../tables/usertbl/usertbl.component';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class GetsetService implements OnDestroy {
   appTitle = 'Dashboard';
   changeTableValueLog: Subject<Log> = new Subject<Log>();
   changeTableValue: Subject<Admin> = new Subject<Admin>();
+  changeTableValueUser: Subject<User> = new Subject<User>();
   changeTableValueSchool: Subject<School> = new Subject<School>();
   changeTableValueSchoolModal: Subject<SchoolModal> = new Subject<SchoolModal>();
   changeTableValueCourse: Subject<Course> = new Subject<Course>();
@@ -96,6 +98,12 @@ export class GetsetService implements OnDestroy {
     const jsonVal = {schoolId: sid, questionId: qid};
     this.querySubscription = this.backendService.addLinearTree(jsonVal).subscribe((res) => {
 
+    });
+  }
+
+  getUsers() {
+    this.querySubscription = this.backendService.getUsers().subscribe((res) => {
+      this.changeTableValueUser.next(res);
     });
   }
 

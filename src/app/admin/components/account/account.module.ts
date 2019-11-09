@@ -9,6 +9,7 @@ import { MatProgressButtonsModule } from 'mat-progress-buttons';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatProgressButtonsModule,
     MatExpansionModule,
     MatIconModule,
+    MatCardModule,
     FormsModule,
     ReactiveFormsModule,
   ],

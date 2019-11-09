@@ -1,5 +1,9 @@
-<div class="jumbotron">
-    <p><b>Add</b> or <b>Edit</b> course information in this page.</p>
+<mat-card>
+  <p style="font-size: 12px;">Course Monitoring</p>
+  <h2 style="margin-top: -3vh;">Course Data Management</h2>
+
+  <hr>
+
   <div class="container mb-4 mt-4">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -71,4 +75,4 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
   </div>
-  </div>
+</mat-card>

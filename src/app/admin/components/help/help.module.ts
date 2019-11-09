@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [HelpComponent],
@@ -14,6 +15,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatExpansionModule,
     MatIconModule,
     MatStepperModule,
+    MatCardModule,
   ],
   exports: [
     HelpComponent,
