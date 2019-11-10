@@ -34,4 +34,19 @@ export class BackendService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.post(this.url + 'addUser', formData, httpOptions);
   }
+
+  addVisitor(token: string) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.url + 'addVisitor', {item: token}, httpOptions);
+  }
+
+  addUserLog(num: number, id: number, user: string) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.url + 'addUserLog', {user_id: id, log: num, name: user}, httpOptions);
+  }
+
+  addRank(formData: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.url + 'addRank', formData, httpOptions);
+  }
 }

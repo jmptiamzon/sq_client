@@ -12,11 +12,13 @@ import { SchoolModule } from './school/school.module';
 import { TreeModule } from './tree/tree.module';
 import { MainComponent } from './main.component';
 import { UsertblComponent } from './tables/usertbl/usertbl.component';
+import { UserlogComponent } from './tables/userlog/userlog.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     UsertblComponent,
+    UserlogComponent,
   ],
   imports: [
     CommonModule,

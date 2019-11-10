@@ -25,7 +25,7 @@ export class AssessmentComponent implements OnInit, OnDestroy {
   disableBtnQ = false;
   annualIncome = 0;
   resultsHidden = true;
-  userId: any;
+  userId: number;
   dPoints = [];
 
   constructor(
@@ -48,12 +48,10 @@ export class AssessmentComponent implements OnInit, OnDestroy {
     this.querySubscription = this.backendService.getAssessmentQuestions().subscribe((res) => {
       this.questions = res["data"];
       this.initFields(res["data"]);
-      console.log(this.questions);
     });
 
     this.querySubscription = this.backendService.getAssessmentCourse().subscribe((res) => {
       this.course = res["data"];
-      console.log(this.course);
     });
 
     this.querySubscription = this.backendService.getAssessmentSchool().subscribe((res) => {
@@ -62,7 +60,9 @@ export class AssessmentComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.submitLog(17);
+  }
 
   submitForm(formData: any) {
     if (!this.form.invalid) {
@@ -81,6 +81,7 @@ export class AssessmentComponent implements OnInit, OnDestroy {
         this.annualIncome = formData.income;
         this.disableBtn = true;
         this.schoolHidden = false;
+        this.submitLog(18);
       });
     }
   }
@@ -91,7 +92,17 @@ export class AssessmentComponent implements OnInit, OnDestroy {
       this.schoolForm.get('selectedSchool').disable();
       this.disableBtnS = true;
       this.questionHidden = false;
+      this.submitLog(19);
     }
+  }
+
+  submitLog(num: number) {
+    const id = Number(sessionStorage.getItem('id'));
+    const token = sessionStorage.getItem('token');
+
+    this.querySubscription = this.backendService.addUserLog(num, id, token).subscribe((res) => {
+
+    });
   }
 
   submitAnswers() {
@@ -192,8 +203,21 @@ export class AssessmentComponent implements OnInit, OnDestroy {
       finalResults.forEach(element => {
         this.dPoints.push({y: element.total, label: element.course_name});
       });
+      i = 0;
 
-      // this.resultsHidden = false;
+      finalResults.forEach(element => {
+        element.userId = this.userId;
+        element.school_id = this.chosenSchool;
+        element.rank = i + 1;
+
+        this.querySubscription = this.backendService.addRank(element).subscribe((res) => {
+
+        });
+
+        i += 1;
+      });
+
+      this.submitLog(19);
       this.renderChart();
     }
   }

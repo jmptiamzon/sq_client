@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private getSet: GetsetService,
     private backendService: BackendService,
   ) {
-    this.getSet.getUserLogs();
+    this.getSet.getUserLogs(0);
 
     this.querySubscription = this.getSet.changeTableValueLog.subscribe((res) => {
       this.dataSource.data = res["data"];

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { BackendService } from './services/backend.service';
 
 @Component({
   selector: 'app-main',

@@ -10,6 +10,7 @@ import { Question, CourseQ } from '../question/question.component';
 import { CourseModal } from '../modals/add-question/add-question.component';
 import { CourseEditModal } from '../modals/edit-question/edit-question.component';
 import { User } from '../tables/usertbl/usertbl.component';
+import { LogTbl } from '../tables/userlog/userlog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class GetsetService implements OnDestroy {
   questionData: any[];
   appTitle = 'Dashboard';
   changeTableValueLog: Subject<Log> = new Subject<Log>();
+  changeTableValueLog2: Subject<LogTbl> = new Subject<LogTbl>();
   changeTableValue: Subject<Admin> = new Subject<Admin>();
   changeTableValueUser: Subject<User> = new Subject<User>();
   changeTableValueSchool: Subject<School> = new Subject<School>();
@@ -40,9 +42,15 @@ export class GetsetService implements OnDestroy {
   ) { }
 
   // Admin
-  getUserLogs() {
-    this.querySubscription = this.backendService.getUserLogs().subscribe((res) => {
+  getUserLogs(type: number) {
+    this.querySubscription = this.backendService.getUserLogs(type).subscribe((res) => {
       this.changeTableValueLog.next(res);
+    });
+  }
+
+  getUserLogs2(type: number) {
+    this.querySubscription = this.backendService.getUserLogs2(type).subscribe((res) => {
+      this.changeTableValueLog2.next(res);
     });
   }
 

@@ -11,9 +11,13 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
+import { UserlogComponent } from '../tables/userlog/userlog.component';
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [
+    DashboardComponent,
+    UserlogComponent,
+  ],
   imports: [
     CommonModule,
     MatTabsModule,

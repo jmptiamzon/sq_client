@@ -13,6 +13,7 @@ import { CourseTree, QuestionTree, SchoolTreeParent } from '../tree/tree.compone
 import { AddQuestionTree, AddCourseTree, AddSchoolTree } from '../modals/add-question-tree/add-question-tree.component';
 import { SchoolTree } from '../modals/choose-school/choose-school.component';
 import { User } from '../tables/usertbl/usertbl.component';
+import { LogTbl } from '../tables/userlog/userlog.component';
 // import 'rxjs/add/operator/map';
 
 @Injectable({
@@ -59,10 +60,16 @@ export class BackendService {
     return this.http.post(this.url + 'addLinearTree', formData, httpOptions);
   }
 
-  getUserLogs(): Observable<Log> {
+  getUserLogs(type: number): Observable<Log> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
-    return this.http.get<Log>(this.url + 'getUserLogs', httpOptions);
+    return this.http.get<Log>(this.url + 'getUserLogs/' + type, httpOptions);
+  }
+
+  getUserLogs2(type: number): Observable<LogTbl> {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get<LogTbl>(this.url + 'getUserLogs/' + type, httpOptions);
   }
 
   getData(): Observable<Admin> {
