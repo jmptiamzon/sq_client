@@ -27,6 +27,7 @@ export class AssessmentComponent implements OnInit, OnDestroy {
   resultsHidden = true;
   userId: number;
   dPoints = [];
+  userData: any;
 
   constructor(
     private backendService: BackendService,
@@ -66,23 +67,18 @@ export class AssessmentComponent implements OnInit, OnDestroy {
 
   submitForm(formData: any) {
     if (!this.form.invalid) {
-      this.querySubscription = this.backendService.addUser(formData).subscribe((res) => {
-        this.userId = res["data"].insertId;
-      },
-      (error) => {
+      formData.visitor_id = Number(sessionStorage.getItem('id'));
+      this.userData = formData;
 
-      },
-      () => {
-        this.form.get('fname').disable();
-        this.form.get('gender').disable();
-        this.form.get('age').disable();
-        this.form.get('email').disable();
-        this.form.get('income').disable();
-        this.annualIncome = formData.income;
-        this.disableBtn = true;
-        this.schoolHidden = false;
-        this.submitLog(18);
-      });
+      this.form.get('fname').disable();
+      this.form.get('gender').disable();
+      this.form.get('age').disable();
+      this.form.get('email').disable();
+      this.form.get('income').disable();
+      this.annualIncome = formData.income;
+      this.disableBtn = true;
+      this.schoolHidden = false;
+      this.submitLog(18);
     }
   }
 
@@ -113,6 +109,9 @@ export class AssessmentComponent implements OnInit, OnDestroy {
     const finalResults = [];
 
     if (!this.questionForm.invalid) {
+      this.querySubscription = this.backendService.addUser(this.userData).subscribe((res) => {
+        this.userId = res["data"].insertId;
+      });
 
       this.questions.forEach(element => {
         element.course_id.split(',').forEach(elem => {

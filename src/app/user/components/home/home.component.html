@@ -120,22 +120,41 @@
 
     <div class="row justify-content-center pt-4">
       <div class="col-12 col-md-7">
-        <form>
+        <form [formGroup]="form" (ngSubmit)="sendEmail(form.value)">
           <div class="row">
             <div class="col">
-              <input type="text" class="form-control" placeholder="Email">
+              <mat-form-field style="width: 100%;">
+                <input matInput placeholder="Email" formControlName="email" required>
+                <mat-error *ngIf="email.hasError('required')">
+                  Email field is required.
+                </mat-error>
+
+                <mat-error *ngIf="email.hasError('email')">
+                  Please check the format of your email.
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
 
           <div class="row mt-4">
             <div class="col">
-              <input type="email" class="form-control" placeholder="Subject">
+              <mat-form-field style="width: 100%;">
+                <input matInput placeholder="Subject" formControlName="subject" required>
+                <mat-error *ngIf="subject.hasError('required')">
+                  Subject field is required.
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
 
           <div class="row mt-4">
             <div class="col">
-              <textarea class="form-control" name="message" rows="3" placeholder="How can we help?"></textarea>
+              <mat-form-field style="width: 100%;">
+                <textarea matInput placeholder="How can we help?" formControlName="content" required></textarea>
+                <mat-error *ngIf="content.hasError('required')">
+                  Content field is required.
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
           <div class="row mt-4">

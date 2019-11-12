@@ -49,4 +49,9 @@ export class BackendService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.post(this.url + 'addRank', formData, httpOptions);
   }
+
+  sendContactUs(formData: any) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.url + 'sendContactUs', formData, httpOptions);
+  }
 }

@@ -253,4 +253,28 @@ export class BackendService {
     return this.http.get<User>(this.url + 'getUsers', httpOptions);
   }
 
+  getChosenSchool(year: string) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get(this.url + 'getChosenSchool/' + year, httpOptions);
+  }
+
+  getVisitors(year: string) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get(this.url + 'getVisitors/' + year, httpOptions);
+  }
+
+  getSuggestedCourse(year: string) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get(this.url + 'getSuggestedCourse/' + year, httpOptions);
+  }
+
+  getConversionCount(year: string) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get(this.url + 'getConversionCount/' + year, httpOptions);
+  }
+
 }

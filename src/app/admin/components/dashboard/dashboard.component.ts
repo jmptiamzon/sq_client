@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { GetsetService } from '../services/getset.service';
-import { MatTableDataSource, MatTable, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatTable, MatPaginator, MatSort, yearsPerPage } from '@angular/material';
 import { BackendService } from '../services/backend.service';
 import * as CanvasJS from '../../../../assets/js/canvasjs.min.js';
+import { Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 export interface Log {
   id: number;
@@ -22,6 +24,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   adminCount: number;
   dbDate: string;
   appStatus: string;
+  yearsVisitor = [];
 
   displayedColumns: string[] = ['id', 'user', 'msg', 'timestamp'];
   dataSource = new MatTableDataSource<Log>();
@@ -64,84 +67,170 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
-    const chart = new CanvasJS.Chart('chartContainer', {
-      animationEnabled: true,
-      exportEnabled: true,
-      title: {
-        text: 'Visitors per Month'
-      },
-      data: [{
-        type: 'column',
-        dataPoints : [
-          {label: 'January', y: 79},
-          {label: 'February', y: 60},
-          {label: 'March', y: 71},
-          {label: 'April', y: 50},
-          {label: 'May', y: 100},
-          {label: 'June', y: 25},
-          {label: 'July', y: 60},
-          {label: 'August', y: 75},
-          {label: 'September', y: 69},
-          {label: 'October', y: 102},
-          {label: 'November', y: 24},
-          {label: 'December', y: 60},
-        ],
-      }]
+    this.visitorChart(new Date().getFullYear().toString());
+    this.schoolChart(new Date().getFullYear().toString());
+    this.courseChart(new Date().getFullYear().toString());
+    this.conversionRateChart(new Date().getFullYear().toString());
+  }
+
+  visitorChart(year: any) {
+    const selectedYear = year.value ? year.value : year;
+
+    this.querySubscription = this.backendService.getVisitors(selectedYear).subscribe((res) => {
+      const temp = [];
+      const dpointVisitor = [];
+      const tempYear = new Set();
+      let dateStr: string;
+      const monthNameList = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
+
+      // tslint:disable-next-line: only-arrow-functions
+      res["data"].forEach(function(x) {
+        tempYear.add(Number(new Date(x.created_at).getFullYear()));
+        dateStr = new Date(x.created_at).toLocaleString('default', { month: 'long' });
+        temp[dateStr] = (temp[dateStr] || 0) + 1;
+      });
+
+      this.yearsVisitor = [...tempYear];
+
+      monthNameList.forEach(element => {
+        dpointVisitor.push({y: (temp[element] || 0) , label: element });
+      });
+
+      const chart = new CanvasJS.Chart('chartContainer', {
+        animationEnabled: true,
+        exportEnabled: true,
+        title: {
+          text: 'Visitors per Month (' + selectedYear + ')'
+        },
+        data: [{
+          type: 'column',
+          dataPoints : dpointVisitor
+        }]
+      });
+
+      chart.render();
     });
+  }
 
-    chart.render();
+  schoolChart(year: any) {
+    const selectedYear = year.value ? year.value : year;
 
-    const chart2 = new CanvasJS.Chart('chartContainer2', {
-      theme: 'light1',
-      animationEnabled: true,
-      exportEnabled: true,
-      title: {
-        text: 'Course Suggestions'
-      },
-      data: [{
-        type: 'pie',
-        showInLegend: true,
-        toolTipContent: '<b>{name}</b>: {y} (#percent%)',
-        indexLabel: '{name} - #percent%',
-        dataPoints: [
-          { y: 450, name: 'Computer Science' },
-          { y: 120, name: 'Information Technology' },
-          { y: 300, name: 'Computer Engineering' },
-          { y: 800, name: 'Psychology' },
-          { y: 150, name: 'Law' },
-          { y: 150, name: 'Philosophy' },
-          { y: 250, name: 'Education' }
-        ]
-      }]
+    this.querySubscription = this.backendService.getSuggestedCourse(selectedYear).subscribe((res) => {
+      const temp = [];
+      const dpointCourse = [];
+
+      // tslint:disable-next-line: only-arrow-functions
+      res["data"].forEach(function(x) {
+        temp[x.course_name] = (temp[x.course_name] || 0) + 1;
+      });
+
+      // tslint:disable-next-line: forin
+      for (const key in temp) {
+        dpointCourse.push({y: temp[key], name: key});
+      }
+
+      const chart2 = new CanvasJS.Chart('chartContainer2', {
+        theme: 'light1',
+        animationEnabled: true,
+        exportEnabled: true,
+        title: {
+          text: 'Course Suggestions (' + selectedYear + ')'
+        },
+        data: [{
+          type: 'pie',
+          showInLegend: true,
+          toolTipContent: '<b>{name}</b>: {y} (#percent%)',
+          indexLabel: '{name} - #percent%',
+          dataPoints: dpointCourse
+        }]
+      });
+
+      chart2.render();
     });
+  }
 
-    chart2.render();
+  courseChart(year: any) {
+    const selectedYear = year.value ? year.value : year;
 
-    const chart3 = new CanvasJS.Chart('chartContainer3', {
-      theme: 'light1',
-      animationEnabled: true,
-      exportEnabled: true,
-      title: {
-        text: 'Schools Chosen'
-      },
-      data: [{
-        type: 'pie',
-        showInLegend: true,
-        toolTipContent: '<b>{name}</b>: {y} (#percent%)',
-        indexLabel: '{name} - #percent%',
-        dataPoints: [
-          { y: 300, name: 'FEU Institute of Technology' },
-          { y: 150, name: 'FEU Manila' },
-          { y: 350, name: 'De La Salle University' },
-          { y: 800, name: 'Polytechnic University of the Philippines' },
-          { y: 100, name: 'University of the Philippines Diliman' },
-          { y: 350, name: 'University of Santo Thomas' },
-          { y: 100, name: 'Ateneo De Manila University' }
-        ]
-      }]
+    this.querySubscription = this.backendService.getChosenSchool(selectedYear).subscribe((res) => {
+      const temp = [];
+      const dpointSchool = [];
+
+      // tslint:disable-next-line: only-arrow-functions
+      res["data"].forEach(function(x) {
+        temp[x.school_name] = (temp[x.school_name] || 0) + 1;
+      });
+
+      // tslint:disable-next-line: forin
+      for (const key in temp) {
+        dpointSchool.push({y: temp[key], name: key});
+      }
+
+      const chart3 = new CanvasJS.Chart('chartContainer3', {
+        theme: 'light1',
+        animationEnabled: true,
+        exportEnabled: true,
+        title: {
+          text: 'Schools Chosen (' + selectedYear + ')'
+        },
+        data: [{
+          type: 'pie',
+          showInLegend: true,
+          toolTipContent: '<b>{name}</b>: {y} (#percent%)',
+          indexLabel: '{name} - #percent%',
+          dataPoints: dpointSchool
+        }]
+      });
+
+      chart3.render();
     });
+  }
 
-    chart3.render();
+  conversionRateChart(year: any) {
+    const selectedYear = year.value ? year.value : year;
+
+    this.querySubscription = this.backendService.getConversionCount(selectedYear).subscribe((res) => {
+      const dpointConversion = [];
+      let conversion: any;
+
+      conversion = (res["data"][0].tbl1 / res["data"][0].tbl2) * 100;
+      dpointConversion.push({y: conversion, name: 'Visitors who finished the assessment.'});
+
+      if ((100 - conversion) !== 0) {
+        dpointConversion.push({y: 100 - conversion, name: 'Visitors who did not finish the assessment.'});
+      }
+
+      const chart4 = new CanvasJS.Chart('chartContainer4', {
+        theme: 'light1',
+        animationEnabled: true,
+        exportEnabled: true,
+        title: {
+          text: 'Visitor Conversion Rate (' + selectedYear + ')'
+        },
+        data: [{
+          type: 'pie',
+          showInLegend: true,
+          toolTipContent: '<b>{name}</b>: {y} (#percent%)',
+          indexLabel: '{name} - #percent%',
+          dataPoints: dpointConversion
+        }]
+      });
+
+      chart4.render();
+    });
   }
 
   applyFilter(filterValue: string) {
