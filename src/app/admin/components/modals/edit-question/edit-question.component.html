@@ -37,8 +37,11 @@
                     <ng-template #emptyTemplate></ng-template>
                   </mat-select-trigger>
 
-                  <mat-option *ngFor="let course of courseData" [value]="course.id">{{course.course_name}}</mat-option>
-                </mat-select>
+                  <ng-container *ngFor="let course of courseData">
+                    <mat-option *ngIf="course.status == 1" [value]="course.id">{{course.course_name}}</mat-option>
+                  </ng-container>
+
+                 </mat-select>
 
                 <mat-error *ngIf="course.hasError('required')">
                   Related course is required.

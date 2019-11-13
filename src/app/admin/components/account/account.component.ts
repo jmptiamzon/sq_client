@@ -68,7 +68,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 
@@ -76,17 +76,45 @@ export class AccountComponent implements OnInit, OnDestroy {
     if (this.accountForm.valid) {
       this.barButtonOptions.active = true;
 
-      this.querySubscription = this.backendService.updateCurrentUser(formData).subscribe((res) => {
-        // console.log(res["data"]);
-      },
-      (error) => {
-        this.barButtonOptions.active = false;
-      },
-      () => {
-        this.updateLocalStorage();
-        this.getSet.updateLogs(10, 0);
-        this.openSnackbar('Account successfully updated!');
+      this.querySubscription = this.backendService.adminExists(formData).subscribe((res) => {
+        if (res["data"].length === 0) {
+          this.querySubscription = this.backendService.updateCurrentUser(formData).subscribe((res2) => {
+            // console.log(res["data"]);
+          },
+          (error) => {
+            this.barButtonOptions.active = false;
+          },
+          () => {
+            this.updateLocalStorage();
+            this.getSet.updateLogs(10, 0);
+            this.openSnackbar('Account successfully updated!');
+          });
+
+        } else if (res["data"].length === 1) {
+          if (Number(formData.id) === Number(res["data"].id)) {
+            this.querySubscription = this.backendService.updateCurrentUser(formData).subscribe((res2) => {
+              // console.log(res["data"]);
+            },
+            (error) => {
+              this.barButtonOptions.active = false;
+            },
+            () => {
+              this.updateLocalStorage();
+              this.getSet.updateLogs(10, 0);
+              this.openSnackbar('Account successfully updated!');
+            });
+
+          } else {
+            this.openSnackbar('There is an associated user for that account.');
+          }
+
+        } else {
+          this.openSnackbar('There is an associated user for that account.');
+        }
+
       });
+
+
     }
   }
 

@@ -1,0 +1,53 @@
+<section class="fdb-block" style="background-image: url('./assets/imgs/shapes/1.svg');">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col col-md-8 text-center">
+        <h1>End of Assessment Survey</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">    <mat-card style="margin-top: 5vh; margin-bottom: 5vh; background-color: #EDF0F5; margin-left: auto; margin-right: auto; text-align: center;">
+    <p style="color: black;">This is an end of assessment survey that we need you to fill-up to further enhance the application.</p>
+
+    <form [formGroup]="form" (ngSubmit)="submitSurvey(form.value)">
+      <mat-form-field style="width: 60vh;">
+        <mat-label>Currently Enrolled At</mat-label>
+        <mat-select formControlName="schoolEnroll">
+          <mat-option *ngFor="let school of schools" [value]="school.school_name">
+            {{school.school_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field style="width: 60vh;">
+        <input matInput placeholder="Others" formControlName="otherSchool">
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field style="width: 60vh;">
+        <mat-label>Course Currently Enrolled In</mat-label>
+        <mat-select formControlName="courseEnroll">
+          <mat-option *ngFor="let course of courses" [value]="course.course_name">
+            {{course.course_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field style="width: 60vh;">
+        <input matInput placeholder="Others" formControlName="otherCourse">
+      </mat-form-field>
+
+
+      <br><br>
+      <button type="submit" class="btn btn-success" style="width: 60vh;">Submit</button>
+    </form>
+  </mat-card>
+
+</div>

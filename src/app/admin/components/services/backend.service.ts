@@ -277,4 +277,28 @@ export class BackendService {
     return this.http.get(this.url + 'getConversionCount/' + year, httpOptions);
   }
 
+  adminExists(formData: any) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.post(this.url + 'adminExists', formData, httpOptions);
+  }
+
+  schoolExists(formData: any) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.post(this.url + 'schoolExists', formData, httpOptions);
+  }
+
+  courseExists(formData: any) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.post(this.url + 'courseExists', formData, httpOptions);
+  }
+
+  questionExists(formData: any) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.post(this.url + 'questionExists', formData, httpOptions);
+  }
+
 }

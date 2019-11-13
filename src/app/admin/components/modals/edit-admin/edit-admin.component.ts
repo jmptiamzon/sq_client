@@ -54,29 +54,51 @@ export class EditAdminComponent implements OnInit, OnDestroy {
 
   editAdmin(formData: any) {
     if (this.updateForm.valid) {
-      this.querySubscription = this.backendService.updateAdmin(formData).subscribe((res) => {
+      this.querySubscription = this.backendService.adminExists(formData).subscribe((res) => {
+        if (res["data"].length === 0) {
+          this.querySubscription = this.backendService.updateAdmin(formData).subscribe((res2) => {
 
-      },
-      (error) => {
+          },
+          (error) => {
 
-      },
-      () => {
-        this.getSet.getData();
-        this.openSnackbar('Administrator updated successfully!');
-        this.getSet.updateLogs(2, formData.id);
-        this.dialogRef.close();
+          },
+          () => {
+            this.getSet.getData();
+            this.openSnackbar('Administrator updated successfully!');
+            this.getSet.updateLogs(2, formData.id);
+            this.dialogRef.close();
+          });
+
+        } else if (res["data"].length === 1) {
+          if (Number(res["data"][0]) === Number(formData.id)) {
+            this.querySubscription = this.backendService.updateAdmin(formData).subscribe((res2) => {
+
+            },
+            (error) => {
+
+            },
+            () => {
+              this.getSet.getData();
+              this.openSnackbar('Administrator updated successfully!');
+              this.getSet.updateLogs(2, formData.id);
+              this.dialogRef.close();
+            });
+
+          } else {
+            this.openSnackbar('Admin already exists.');
+          }
+
+        } else {
+          this.openSnackbar('Admin already exists.');
+        }
+
       });
     }
-    /*
-    if (formData.fname !== this.updateForm.get('fname').value &&
-     formData.mname !== this.updateForm.get('mname') formData.lname || formData.uname || formData.pword) !== '') {
-
-    }*/
   }
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 

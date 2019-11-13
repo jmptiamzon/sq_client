@@ -68,7 +68,7 @@ export class ConfigComponent implements OnInit, OnDestroy {
 
   openSnackbar(msg: string) {
     this.snackbar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 

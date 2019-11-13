@@ -47,24 +47,50 @@ export class EditCourseComponent implements OnInit, OnDestroy {
 
   editCourse(formData: any) {
     if (this.editCourseForm.valid) {
-      this.querySubscription = this.backendService.updateCourse(formData).subscribe((res) => {
+      this.querySubscription = this.backendService.courseExists(formData).subscribe((res) => {
+        if (res["data"].length === 0) {
+          this.querySubscription = this.backendService.updateCourse(formData).subscribe((res2) => {
 
-      },
-      (error) => {
+          },
+          (error) => {
 
-      },
-      () => {
-        this.getSet.getDataCourse();
-        this.openSnackbar('Course successfully updated!');
-        this.getSet.updateLogs(6, formData.id);
-        this.dialogRef.close();
+          },
+          () => {
+            this.getSet.getDataCourse();
+            this.openSnackbar('Course successfully updated!');
+            this.getSet.updateLogs(6, formData.id);
+            this.dialogRef.close();
+          });
+
+        } else if (res["data"].length === 1) {
+          if (Number(res["data"][0].id) === Number(formData.id)) {
+            this.querySubscription = this.backendService.updateCourse(formData).subscribe((res2) => {
+
+            },
+            (error) => {
+
+            },
+            () => {
+              this.getSet.getDataCourse();
+              this.openSnackbar('Course successfully updated!');
+              this.getSet.updateLogs(6, formData.id);
+              this.dialogRef.close();
+            });
+
+          } else {
+            this.openSnackbar('Course already exists.');
+          }
+
+        } else {
+          this.openSnackbar('Course already exists.');
+        }
       });
     }
   }
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 

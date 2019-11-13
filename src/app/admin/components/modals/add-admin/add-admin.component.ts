@@ -44,24 +44,34 @@ export class AddAdminComponent implements OnInit, OnDestroy {
 
   addAdminDialog(formData: any) {
     if (this.addAdmin.valid) {
-      this.querySubscription = this.backendService.addAdmin(formData).subscribe((res) => {
 
-      },
-      (error) => {
+      this.querySubscription = this.backendService.adminExists(formData).subscribe((res) => {
+        if (res["data"].length === 0) {
+          this.querySubscription = this.backendService.addAdmin(formData).subscribe((res2) => {
 
-      },
-      () => {
-        this.getSet.getData();
-        this.openSnackbar('Administrator successfully added!');
-        this.getSet.updateLogs(1, 0);
-        this.dialogRef.close();
+          },
+          (error) => {
+
+          },
+          () => {
+            this.getSet.getData();
+            this.openSnackbar('Administrator successfully added!');
+            this.getSet.updateLogs(1, 0);
+            this.dialogRef.close();
+          });
+
+        } else {
+          this.openSnackbar('Admin already exists.');
+        }
       });
+
     }
+
   }
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 

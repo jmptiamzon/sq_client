@@ -28,6 +28,7 @@ const routes: Routes = [
       { path: 'help', component: HelpComponent, canActivate: [AuthGuardService] },
       { path: 'account', component: AccountComponent, canActivate: [AuthGuardService] },
       { path: 'tree', component: TreeComponent, canActivate: [AuthGuardService] },
+      { path: '**', pathMatch: 'full', redirectTo: 'admin/dashboard' },
     ],
   },
 

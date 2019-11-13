@@ -7,10 +7,13 @@ import { AboutModule } from './components/about/about.module';
 import { AssessmentModule } from './components/assessment/assessment.module';
 import { FeatureModule } from './components/feature/feature.module';
 import { RouterModule } from '@angular/router';
+import { MaintenanceComponent } from './components/maintenance/maintenance.component';
+import { SurveyModule } from './components/survey/survey.module';
 
 @NgModule({
   declarations: [
     UserComponent,
+    MaintenanceComponent,
   ],
   imports: [
     CommonModule,
@@ -20,6 +23,7 @@ import { RouterModule } from '@angular/router';
     AboutModule,
     AssessmentModule,
     FeatureModule,
+    SurveyModule,
   ]
 })
 export class UserModule { }

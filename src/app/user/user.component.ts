@@ -20,6 +20,12 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.querySubscription = this.backendService.getAppStatus().subscribe((res) => {
+      if (Number(res["data"][0].status) === 0) {
+        this.router.navigate(['maintenance']);
+      }
+    });
+
     if (!sessionStorage.getItem('token')) {
       sessionStorage.setItem('token', Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
       this.querySubscription = this.backendService.addVisitor(sessionStorage.getItem('token')).subscribe((res) => {

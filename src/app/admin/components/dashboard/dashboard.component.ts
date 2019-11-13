@@ -206,7 +206,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const dpointConversion = [];
       let conversion: any;
 
-      conversion = (res["data"][0].tbl1 / res["data"][0].tbl2) * 100;
+      conversion = (res["data"][0].tbl2 / res["data"][0].tbl1) * 100;
       dpointConversion.push({y: conversion, name: 'Visitors who finished the assessment.'});
 
       if ((100 - conversion) !== 0) {

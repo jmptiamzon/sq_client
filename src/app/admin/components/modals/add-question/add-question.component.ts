@@ -44,24 +44,32 @@ export class AddQuestionComponent implements OnInit, OnDestroy {
 
   addQuestion(formData: any) {
     if (this.addQuestionForm.valid) {
-      this.querySubscription = this.backendService.addQuestion(formData).subscribe((res) => {
+      this.querySubscription = this.backendService.questionExists(formData).subscribe((res) => {
+        if (res["data"].length === 0) {
+          this.querySubscription = this.backendService.addQuestion(formData).subscribe((res2) => {
 
-      },
-      (error) => {
+          },
+          (error) => {
 
-      },
-      () => {
-        this.getSet.getDataQuestion();
-        this.openSnackbar('Question added successfully!');
-        this.getSet.updateLogs(12, 0);
-        this.dialogRef.close();
+          },
+          () => {
+            this.getSet.getDataQuestion();
+            this.openSnackbar('Question added successfully!');
+            this.getSet.updateLogs(12, 0);
+            this.dialogRef.close();
+          });
+
+        } else {
+          this.openSnackbar('Question already exists.');
+        }
       });
+
     }
   }
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 

@@ -54,4 +54,42 @@ export class BackendService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.post(this.url + 'sendContactUs', formData, httpOptions);
   }
+
+  getAppStatus() {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get(this.url + 'getMaintenance', httpOptions);
+  }
+
+  getSurveyCourse() {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get(this.url + 'getSurveyCourse', httpOptions);
+  }
+
+  getSurveySchool() {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get(this.url + 'getSurveySchool', httpOptions);
+  }
+
+  surveyExists(formData: any) {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.url + 'surveyExists', formData, httpOptions);
+  }
+
+  getVisitorToken(formData: any) {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.url + 'getVisitorToken', formData, httpOptions);
+  }
+
+  addSurvey(formData: any) {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.url + 'addSurvey', formData, httpOptions);
+  }
+
+
 }

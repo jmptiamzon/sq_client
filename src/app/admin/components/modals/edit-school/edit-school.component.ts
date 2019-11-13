@@ -66,25 +66,35 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
   editSchool(formData: any) {
     if (this.editSchoolForm.valid) {
       if (parseFloat(formData.mxtuition) > parseFloat(formData.mntuition)) {
-        this.querySubscription = this.backendService.updateSchool(formData).subscribe((res) => {
+        this.querySubscription = this.backendService.schoolExists(formData).subscribe((res) => {
+          if (Number(res["data"][0].id) === Number(formData.id)) {
+            this.querySubscription = this.backendService.updateSchool(formData).subscribe((res2) => {
 
-        },
-        (error) => {
+            },
+            (error) => {
 
-        },
-        () => {
-          this.getSet.getDataSchool();
-          this.openSnackbar('School updated successfully!');
-          this.getSet.updateLogs(4, formData.id);
-          this.dialogRef.close();
+            },
+            () => {
+              this.getSet.getDataSchool();
+              this.openSnackbar('School updated successfully!');
+              this.getSet.updateLogs(4, formData.id);
+              this.dialogRef.close();
+            });
+
+          } else {
+            this.openSnackbar('School already exists.');
+          }
+
         });
+
+
       }
     }
   }
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 

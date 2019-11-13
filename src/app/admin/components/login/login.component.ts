@@ -52,45 +52,25 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   errorSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 
   login(formData) {
     if (formData.uname !== '' && formData.pword !== '') {
       this.barButtonOptions.active = true;
+
       this.querySubscription = this.backendService.login(formData).subscribe((res) => {
-        if (res["errorCode"] > 0) {
-          // this.error = false;
-          // this.errorMessage = '';
-          // this.dataLoading = false;
+        if (res["data"].length === 0) {
+          this.errorSnackbar('No such user exists.');
+        } else {
           this.barButtonOptions.active = false;
           localStorage.setItem('currentUser', JSON.stringify(res["data"][0]));
           localStorage.setItem('token', res["token"].token);
           localStorage.setItem('user', formData.uname);
           this.getSet.updateLogs(0, 0);
           this.route.navigate(['/admin/dashboard']);
-
-        } else {
-          // this.error = true;
-          // this.errorMessage = res["errorMessage"];
-          // this.dataLoading = false;
-          this.barButtonOptions.active = false;
-          this.errorSnackbar('No such user exists.');
         }
-
-      },
-
-      (error) => {
-          this.error = true;
-          this.errorMessage = error.message;
-          this.dataLoading = false;
-          this.barButtonOptions.active = false;
-          this.errorSnackbar('An unexpected error occurred.');
-      },
-
-      () => {
-          this.dataLoading = false;
       });
 
     }

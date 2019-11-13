@@ -293,7 +293,7 @@ export class AssessmentComponent implements OnInit, OnDestroy {
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg, '', {
-      duration: 2000,
+      duration: 5000,
     });
   }
 

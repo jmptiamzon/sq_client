@@ -61,17 +61,24 @@ export class AddSchoolComponent implements OnInit, OnDestroy {
   addSchool(formData: any) {
     if (this.addSchoolForm.valid) {
       if (parseFloat(formData.mxtuition) > parseFloat(formData.mntuition)) {
-        this.querySubscription = this.backendService.addSchool(formData).subscribe((res) => {
+        this.querySubscription = this.backendService.schoolExists(formData).subscribe((res) => {
+          if (res["data"].length === 0) {
+            this.querySubscription = this.backendService.addSchool(formData).subscribe((res2) => {
 
-        },
-        (error) => {
+            },
+            (error) => {
 
-        },
-        () => {
-          this.getSet.getDataSchool();
-          this.openSnackbar('School successfully added!');
-          this.getSet.updateLogs(3, 0);
-          this.dialogRef.close();
+            },
+            () => {
+              this.getSet.getDataSchool();
+              this.openSnackbar('School successfully added!');
+              this.getSet.updateLogs(3, 0);
+              this.dialogRef.close();
+            });
+
+          } else {
+            this.openSnackbar('School already exists.');
+          }
         });
 
       }
@@ -80,7 +87,7 @@ export class AddSchoolComponent implements OnInit, OnDestroy {
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 

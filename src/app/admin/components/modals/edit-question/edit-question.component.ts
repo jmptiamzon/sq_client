@@ -44,18 +44,47 @@ export class EditQuestionComponent implements OnInit, OnDestroy {
   }
 
   editQuestion(formData: any) {
-    this.querySubscription = this.backendService.updateQuestion(formData).subscribe((res) => {
+    this.querySubscription = this.backendService.questionExists(formData).subscribe((res) => {
+      if (res["data"].length === 0) {
+        this.querySubscription = this.backendService.updateQuestion(formData).subscribe((res2) => {
 
-    },
-    (error) => {
+        },
+        (error) => {
 
-    },
-    () => {
-      this.getSet.getDataQuestion();
-      this.openSnackbar('Question updated successfully!');
-      this.getSet.updateLogs(13, formData.id);
-      this.dialogRef.close();
+        },
+        () => {
+          this.getSet.getDataQuestion();
+          this.openSnackbar('Question updated successfully!');
+          this.getSet.updateLogs(13, formData.id);
+          this.dialogRef.close();
+        });
+
+      } else if (res["data"].length === 1) {
+        if (Number(res["data"][0].id) === Number(formData.id)) {
+          this.querySubscription = this.backendService.updateQuestion(formData).subscribe((res2) => {
+
+          },
+          (error) => {
+
+          },
+          () => {
+            this.getSet.getDataQuestion();
+            this.openSnackbar('Question updated successfully!');
+            this.getSet.updateLogs(13, formData.id);
+            this.dialogRef.close();
+          });
+
+        } else {
+          this.openSnackbar('Question already exists.');
+        }
+
+      } else {
+        this.openSnackbar('Question already exists.');
+      }
+
     });
+
+
   }
 
   findById(id: number) {
@@ -66,7 +95,7 @@ export class EditQuestionComponent implements OnInit, OnDestroy {
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 

@@ -30,7 +30,9 @@
                     </span>
                   </mat-select-trigger>
 
-                  <mat-option *ngFor="let school of schools" [value]="school.id">{{school.school_name}}</mat-option>
+                  <ng-container *ngFor="let school of schools">
+                    <mat-option *ngIf="school.status == 1" [value]="school.id">{{school.school_name}}</mat-option>
+                  </ng-container>
                 </mat-select>
 
                 <mat-error *ngIf="sid.hasError('required')">

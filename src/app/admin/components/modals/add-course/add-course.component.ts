@@ -47,24 +47,34 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 
   addCourse(formData: any) {
     if (this.addCourseForm.valid) {
-      this.querySubscription = this.backendService.addCourse(formData).subscribe((res) => {
+      this.querySubscription = this.backendService.courseExists(formData).subscribe((res) => {
+        if (res["data"].length === 0) {
+          this.querySubscription = this.backendService.addCourse(formData).subscribe((res2) => {
 
-      },
-      (error) => {
+          },
+          (error) => {
 
-      },
-      () => {
-        this.getSet.getDataCourse();
-        this.openSnackbar('Course added successfully!');
-        this.getSet.updateLogs(5, 0);
-        this.dialogRef.close();
+          },
+          () => {
+            this.getSet.getDataCourse();
+            this.openSnackbar('Course added successfully!');
+            this.getSet.updateLogs(5, 0);
+            this.dialogRef.close();
+          });
+
+        } else {
+          this.openSnackbar('Course already exists.');
+
+        }
+
       });
+
     }
   }
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 
