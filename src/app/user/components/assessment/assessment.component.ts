@@ -3,6 +3,7 @@ import { BackendService } from '../services/backend.service';
 import { FormBuilder, Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import * as CanvasJS from '../../../../assets/js/canvasjs.min.js';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assessment',
@@ -32,7 +33,8 @@ export class AssessmentComponent implements OnInit, OnDestroy {
   constructor(
     private backendService: BackendService,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router,
   ) {
     this.form = this.formBuilder.group({
       fname: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ,.\'-]+$')]),
@@ -62,6 +64,12 @@ export class AssessmentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.querySubscription = this.backendService.getAppStatus().subscribe((res) => {
+      if (Number(res["data"][0].status) === 0) {
+        this.router.navigate(['maintenance']);
+      }
+    });
+
     this.submitLog(17);
   }
 
@@ -109,10 +117,6 @@ export class AssessmentComponent implements OnInit, OnDestroy {
     const finalResults = [];
 
     if (!this.questionForm.invalid) {
-      this.querySubscription = this.backendService.addUser(this.userData).subscribe((res) => {
-        this.userId = res["data"].insertId;
-      });
-
       this.questions.forEach(element => {
         element.course_id.split(',').forEach(elem => {
           this.course.forEach(ele => {
@@ -204,6 +208,10 @@ export class AssessmentComponent implements OnInit, OnDestroy {
       });
       i = 0;
 
+      this.querySubscription = this.backendService.addUser(this.userData).subscribe((res) => {
+        this.userId = res["data"].insertId;
+      });
+
       finalResults.forEach(element => {
         element.userId = this.userId;
         element.school_id = this.chosenSchool;
@@ -214,6 +222,11 @@ export class AssessmentComponent implements OnInit, OnDestroy {
         });
 
         i += 1;
+      });
+
+      const emailData = {visitor: sessionStorage.getItem('token'), email: this.userData.email};
+      this.querySubscription = this.backendService.sendSurvey(emailData).subscribe((res) => {
+
       });
 
       this.submitLog(19);

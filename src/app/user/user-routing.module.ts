@@ -19,11 +19,10 @@ const routes: Routes = [
       { path: 'feature', component: FeatureComponent },
       { path: 'assessment', component: AssessmentComponent },
       { path: 'survey/:user', component: SurveyComponent },
+      { path: 'maintenance', component: MaintenanceComponent },
       { path: '**', pathMatch: 'full', component: HomeComponent },
     ]
   },
-
-  { path: 'maintenance', component: MaintenanceComponent },
 ];
 
 @NgModule({

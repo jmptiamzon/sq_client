@@ -57,6 +57,11 @@ export class SurveyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.querySubscription = this.backendService.getAppStatus().subscribe((res) => {
+      if (Number(res["data"][0].status) === 0) {
+        this.router.navigate(['maintenance']);
+      }
+    });
   }
 
   submitSurvey(formData: any) {

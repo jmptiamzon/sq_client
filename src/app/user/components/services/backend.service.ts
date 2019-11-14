@@ -52,7 +52,7 @@ export class BackendService {
 
   sendContactUs(formData: any) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.post(this.url + 'sendContactUs', formData, httpOptions);
+    return this.http.post(this.url + 'sendContact', formData, httpOptions);
   }
 
   getAppStatus() {
@@ -89,6 +89,12 @@ export class BackendService {
     // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.post(this.url + 'addSurvey', formData, httpOptions);
+  }
+
+  sendSurvey(formData: any) {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.url + 'sendSurvey', formData, httpOptions);
   }
 
 

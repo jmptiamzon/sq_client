@@ -28,6 +28,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.querySubscription = this.backendService.getAppStatus().subscribe((res) => {
+      if (Number(res["data"][0].status) === 0) {
+        this.router.navigate(['maintenance']);
+      }
+    });
+
     const id = Number(sessionStorage.getItem('id'));
     const token = sessionStorage.getItem('token');
 
