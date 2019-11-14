@@ -26,7 +26,6 @@ export class AssessmentComponent implements OnInit, OnDestroy {
   disableBtnQ = false;
   annualIncome = 0;
   resultsHidden = true;
-  userId: number;
   dPoints = [];
   userData: any;
 
@@ -209,19 +208,17 @@ export class AssessmentComponent implements OnInit, OnDestroy {
       i = 0;
 
       this.querySubscription = this.backendService.addUser(this.userData).subscribe((res) => {
-        this.userId = res["data"].insertId;
-      });
+        finalResults.forEach(element => {
+          element.userId = res["data"].insertId;
+          element.school_id = this.chosenSchool;
+          element.rank = i + 1;
 
-      finalResults.forEach(element => {
-        element.userId = this.userId;
-        element.school_id = this.chosenSchool;
-        element.rank = i + 1;
+          this.querySubscription = this.backendService.addRank(element).subscribe((res) => {
 
-        this.querySubscription = this.backendService.addRank(element).subscribe((res) => {
+          });
 
+          i += 1;
         });
-
-        i += 1;
       });
 
       const emailData = {visitor: sessionStorage.getItem('token'), email: this.userData.email};
