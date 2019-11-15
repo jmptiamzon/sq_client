@@ -48,6 +48,8 @@ export class TreeComponent implements OnInit, OnDestroy {
   school: any;
   schoolId: number;
   chosenQuestions: string[] = [];
+  treeData: any;
+  schoolDistinct = [];
 
   barButtonOptions: MatProgressButtonOptions = {
     active: false,
@@ -81,11 +83,25 @@ export class TreeComponent implements OnInit, OnDestroy {
       this.school = res["data"];
     });
 
+    this.getTree();
     this.initForm();
     this.getSet.appTitle = 'Decision Tree';
   }
 
   ngOnInit() {
+  }
+
+  getTree() {
+    this.querySubscription = this.backendService.getTrees().subscribe((res) => {
+      this.treeData = res["data"];
+      const uniqueData = new Set();
+
+      this.treeData.forEach(element => {
+        uniqueData.add(element.school_name);
+      });
+
+      this.schoolDistinct = [...uniqueData];
+    });
   }
 
   initForm() {
@@ -97,13 +113,30 @@ export class TreeComponent implements OnInit, OnDestroy {
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg, '', {
-      duration: 2000,
+      duration: 5000,
     });
   }
 
   addLinearTree() {
+    const temp = [];
+    let flag = false;
+
+    this.school.forEach((element: any) => {
+      this.schoolDistinct.forEach((elem: any) => {
+        if (element.school_name === elem) {
+          flag = true;
+        }
+      });
+
+      if (!flag) {
+        temp.push({id: element.id, school_name: element.school_name});
+      }
+      flag = false;
+    });
+
     const dialogVal = this.dialogRef.open(ChooseSchoolComponent, {
-      width: '80vh'
+      width: '80vh',
+      data: temp,
     });
 
     dialogVal.afterClosed().subscribe((res) => {
@@ -116,12 +149,6 @@ export class TreeComponent implements OnInit, OnDestroy {
         this.hide2 = false;
       }
     });
-  }
-
-  addBranchingTree() {
-    this.hide = false;
-    this.hide2 = true;
-    this.initForm();
   }
 
   initFields(): FormGroup {
@@ -149,6 +176,7 @@ export class TreeComponent implements OnInit, OnDestroy {
     this.ctr -= 1;
     this.formArr.removeAt(num);
     this.chosenQuestions[num] = null;
+    this.openSnackbar('Question deleted successfully.');
   }
 
   questionDialog(num: number) {
@@ -184,12 +212,62 @@ export class TreeComponent implements OnInit, OnDestroy {
     });
   }
 
+  editTree(school: string) {
+    let ctr = 0;
+    this.chosenSchool = school;
+    this.schoolId = this.findIdSchool(school);
+    this.chosenQuestions = [];
+    this.hide = false;
+    this.hide2 = true;
+    this.form.controls.schoolName.setValue(this.schoolId.toString());
+    this.initForm();
+
+    this.treeData.forEach((element: any) => {
+      if (element.school_name === this.chosenSchool) {
+        if (ctr > 0) {
+          this.createFields(1);
+        }
+
+        this.form.controls.questions.controls[ctr].controls.question.setValue(element.question);
+        this.form.controls.questions.controls[ctr].controls.questionValue.setValue(this.findId(element.question));
+        this.chosenQuestions[ctr] = this.findId(element.question);
+
+        ctr += 1;
+      }
+    });
+
+    ctr -= 1;
+    this.ctr += ctr;
+  }
+
+  deleteEditForm(id: number) {
+    const question = this.form.controls.questions.controls[id].controls.question.value;
+    this.removeFields(id);
+
+    if (question !== '') {
+      this.getSet.deleteTree(this.findIdTree(question));
+      this.getTree();
+    }
+  }
+
   findById(id: number) {
     return this.questionData.find((x: any) => x.id === id).question;
   }
 
+  findId(question: string) {
+    return this.questionData.find((x: any) => x.question === question).id;
+  }
+
+  findIdTree(question: string) {
+    return this.treeData.find((x: any) => x.question === question).tree_id;
+  }
+
   findByIdSchool(id: number) {
     return this.school.find((x: any) => x.id === id).school_name;
+  }
+
+  findIdSchool(school: string) {
+    return this.school.find((x: any) => x.school_name === school).id;
   }
 
   formSubmit(formData: any) {
@@ -212,6 +290,38 @@ export class TreeComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.barButtonOptions.active = false;
+      this.openSnackbar('Tree added successfully.');
+      this.hide = false;
+    }, 5000);
+  }
+
+  editFormSubmit(formData: any) {
+    let flag = true;
+    this.barButtonOptions.active = true;
+
+    for (const element of formData.questions) {
+      if (element.questionValue === '') {
+        flag = false;
+        this.openSnackbar('Please fill-up all the fields.');
+        break;
+      }
+    }
+
+    if (flag) {
+      this.treeData.forEach((element: any) => {
+        this.getSet.deleteTree(Number(element.tree_id));
+      });
+
+      for (const element of formData.questions) {
+        this.getSet.addLinearTree(this.schoolId, element.questionValue);
+      }
+    }
+
+    setTimeout(() => {
+      this.barButtonOptions.active = false;
+      this.openSnackbar('Tree updated successfully.');
+      this.getTree();
+      this.hide2 = false;
     }, 5000);
   }
 

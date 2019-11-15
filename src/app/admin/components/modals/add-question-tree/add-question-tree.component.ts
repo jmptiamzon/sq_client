@@ -39,6 +39,7 @@ export class AddQuestionTreeComponent implements OnInit, OnDestroy {
   schoolData: any;
   ids: number[];
   flag = false;
+  btnFlag = false;
   ctr = 0;
 
   constructor(
@@ -122,6 +123,9 @@ export class AddQuestionTreeComponent implements OnInit, OnDestroy {
   }
 
   returnToParent(formData: any) {
+    this.form.get('question').disable();
+    this.btnFlag = true;
+
     this.dialogRef.close(formData.question);
   }
 

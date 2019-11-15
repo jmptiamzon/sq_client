@@ -20,6 +20,7 @@ export class EditQuestionComponent implements OnInit, OnDestroy {
   editQuestionForm: any;
   querySubscription: any;
   courseData: any;
+  flag = false;
 
   constructor(
     private getSet: GetsetService,
@@ -44,23 +45,14 @@ export class EditQuestionComponent implements OnInit, OnDestroy {
   }
 
   editQuestion(formData: any) {
-    this.querySubscription = this.backendService.questionExists(formData).subscribe((res) => {
-      if (res["data"].length === 0) {
-        this.querySubscription = this.backendService.updateQuestion(formData).subscribe((res2) => {
+    if (this.editQuestionForm.valid) {
+      this.editQuestionForm.get('question').disable();
+      this.editQuestionForm.get('course').disable();
+      this.editQuestionForm.get('status').disable();
+      this.flag = true;
 
-        },
-        (error) => {
-
-        },
-        () => {
-          this.getSet.getDataQuestion();
-          this.openSnackbar('Question updated successfully!');
-          this.getSet.updateLogs(13, formData.id);
-          this.dialogRef.close();
-        });
-
-      } else if (res["data"].length === 1) {
-        if (Number(res["data"][0].id) === Number(formData.id)) {
+      this.querySubscription = this.backendService.questionExists(formData).subscribe((res) => {
+        if (res["data"].length === 0) {
           this.querySubscription = this.backendService.updateQuestion(formData).subscribe((res2) => {
 
           },
@@ -74,17 +66,30 @@ export class EditQuestionComponent implements OnInit, OnDestroy {
             this.dialogRef.close();
           });
 
+        } else if (res["data"].length === 1) {
+          if (Number(res["data"][0].id) === Number(formData.id)) {
+            this.querySubscription = this.backendService.updateQuestion(formData).subscribe((res2) => {
+
+            },
+            (error) => {
+
+            },
+            () => {
+              this.getSet.getDataQuestion();
+              this.openSnackbar('Question updated successfully!');
+              this.getSet.updateLogs(13, formData.id);
+              this.dialogRef.close();
+            });
+
+          } else {
+            this.openSnackbar('Question already exists.');
+          }
+
         } else {
           this.openSnackbar('Question already exists.');
         }
-
-      } else {
-        this.openSnackbar('Question already exists.');
-      }
-
-    });
-
-
+      });
+    }
   }
 
   findById(id: number) {

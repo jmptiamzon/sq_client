@@ -14,6 +14,7 @@ export class EditCourseComponent implements OnInit, OnDestroy {
   formValues: any[];
   querySubscription: any;
   schools: any;
+  flag = false;
   // private test: string[] = ['1', '2'];
 
   constructor(
@@ -47,6 +48,11 @@ export class EditCourseComponent implements OnInit, OnDestroy {
 
   editCourse(formData: any) {
     if (this.editCourseForm.valid) {
+      this.editCourseForm.get('sid').disable();
+      this.editCourseForm.get('cname').disable();
+      this.editCourseForm.get('status').disable();
+      this.flag = true;
+
       this.querySubscription = this.backendService.courseExists(formData).subscribe((res) => {
         if (res["data"].length === 0) {
           this.querySubscription = this.backendService.updateCourse(formData).subscribe((res2) => {

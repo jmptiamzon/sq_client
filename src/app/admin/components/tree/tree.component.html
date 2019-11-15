@@ -3,14 +3,23 @@
   <span>Add Linear Tree</span>
 </button>
 
+<!--
 <button mat-raised-button color="primary" class="mb-3 ml-3" (click)="addBranchingTree()">
   <mat-icon aria-hidden="false" class="mr-2">category</mat-icon>
   <span>Add Branching Tree</span>
 </button>
-
-<mat-card>
-  TREES HERE
-</mat-card>
+-->
+<ng-container *ngFor="let item of schoolDistinct">
+  <mat-card>
+    {{item}}
+    <span style="float: right; margin-top: -1.5vh;">
+      <button type="button" mat-icon-button class="ml-2"
+      matTooltip="Choose question" (click)="editTree(item)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </span>
+  </mat-card>
+</ng-container>
 
 <hr>
 
@@ -23,10 +32,6 @@
       <span>Add Multiple Questions</span>
     </button>
 
-    <button type="button" mat-raised-button color="warn" class="mb-3 ml-3">
-      <mat-icon aria-hidden="false" class="mr-2">delete</mat-icon>
-      <span>Remove Multiple Questions</span>
-    </button>
   </div>
 
   <div formArrayName="questions">
@@ -34,7 +39,6 @@
       <mat-card *ngIf="hide" class="mb-1">
         <h6>
           <b>Question {{ i + 1 }}</b>
-          <mat-checkbox style="float: right;" color="warn"></mat-checkbox>
         </h6>
 
         <input type="hidden" formControlName="questionValue">
@@ -66,6 +70,48 @@
 </form>
 
 <mat-card *ngIf="hide2">
+<form [formGroup]="form" (ngSubmit)="editFormSubmit(form.value)">
+  <input type="hidden" formControlName="schoolName">
+  <div *ngIf="hide2">
+    <button type="button" mat-raised-button color="primary" class="mb-3" (click)="addMultiple()">
+      <mat-icon aria-hidden="false" class="mr-2">add</mat-icon>
+      <span>Add Multiple Questions</span>
+    </button>
+  </div>
 
+  <div formArrayName="questions">
+    <div *ngFor="let item of formArr.controls; let i = index" [formGroupName]="i">
+      <mat-card *ngIf="hide2" class="mb-1">
+        <h6>
+          <b>Question {{ i + 1 }}</b>
+        </h6>
+
+        <input type="hidden" formControlName="questionValue">
+        <mat-form-field style="width: 80vh;">
+          <textarea matInput placeholder="Chosen question" formControlName="question">
+          </textarea>
+
+        </mat-form-field>
+
+        <button type="button" mat-icon-button class="ml-2"
+        matTooltip="Choose question" (click)="questionDialog(i)">
+          <mat-icon>question_answer</mat-icon>
+        </button>
+
+        <button type="button" mat-icon-button color="primary"
+        matTooltip="Add next question" (click)="createFields(1)">
+          <mat-icon>add</mat-icon>
+        </button>
+
+        <button type="button" mat-icon-button color="warn"
+        matTooltip="Remove this question" *ngIf="i > 0" (click)="deleteEditForm(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card>
+    </div>
+  </div>
+
+  <mat-bar-button [options]="barButtonOptions" *ngIf="hide2"></mat-bar-button>
+</form>
 </mat-card>
 

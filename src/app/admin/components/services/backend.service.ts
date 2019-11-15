@@ -60,6 +60,12 @@ export class BackendService {
     return this.http.post(this.url + 'addLinearTree', formData, httpOptions);
   }
 
+  deleteLinearTree(formData: any) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
+    return this.http.post(this.url + 'deleteLinearTree', formData, httpOptions);
+  }
+
   getUserLogs(type: number): Observable<Log> {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
@@ -299,6 +305,12 @@ export class BackendService {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
     return this.http.post(this.url + 'questionExists', formData, httpOptions);
+  }
+
+  getTrees() {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get(this.url + 'getTrees', httpOptions);
   }
 
 }

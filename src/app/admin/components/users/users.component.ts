@@ -72,12 +72,12 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   adminDialog() {
-    const dialogRef = this.dialog.open(AddAdminComponent);
+    const dialogRef = this.dialog.open(AddAdminComponent, { disableClose: true });
   }
 
   editAdmin(id: number, fname: string, mname: string, lname: string, uname: string, status: boolean) {
     this.getSet.adminData = [id, fname, mname, lname, uname, status];
-    const dialogRef = this.dialog.open(EditAdminComponent);
+    const dialogRef = this.dialog.open(EditAdminComponent, { disableClose: true });
   }
 
   ngOnDestroy() {

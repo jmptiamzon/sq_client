@@ -25,7 +25,7 @@
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
-    <button type="button" mat-button mat-dialog-close>Cancel</button>
-    <button type="submit" mat-button>Submit</button>
+    <button type="button" mat-button mat-dialog-close [disabled]="btnFlag">Cancel</button>
+    <button type="submit" mat-button [disabled]="btnFlag">Submit</button>
   </mat-dialog-actions>
 </form>

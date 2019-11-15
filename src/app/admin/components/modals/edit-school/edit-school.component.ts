@@ -13,6 +13,7 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
   editSchoolForm: any;
   formValues: any[];
   querySubscription: any;
+  flag = false;
 
   constructor(
     private getSet: GetsetService,
@@ -65,9 +66,15 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
 
   editSchool(formData: any) {
     if (this.editSchoolForm.valid) {
+      this.editSchoolForm.get('sname').disable();
+      this.editSchoolForm.get('mntuition').disable();
+      this.editSchoolForm.get('mxtuition').disable();
+      this.editSchoolForm.get('status').disable();
+      this.flag = true;
+
       if (parseFloat(formData.mxtuition) > parseFloat(formData.mntuition)) {
         this.querySubscription = this.backendService.schoolExists(formData).subscribe((res) => {
-          if (Number(res["data"][0].id) === Number(formData.id)) {
+          if (res["data"].length === 0) {
             this.querySubscription = this.backendService.updateSchool(formData).subscribe((res2) => {
 
             },
@@ -81,13 +88,29 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
               this.dialogRef.close();
             });
 
+          } else if (res["data"].length === 1) {
+            if (Number(res["data"][0].id) === Number(formData.id)) {
+              this.querySubscription = this.backendService.updateSchool(formData).subscribe((res2) => {
+
+              },
+              (error) => {
+
+              },
+              () => {
+                this.getSet.getDataSchool();
+                this.openSnackbar('School updated successfully!');
+                this.getSet.updateLogs(4, formData.id);
+                this.dialogRef.close();
+              });
+
+            } else {
+              this.openSnackbar('School already exists.');
+            }
+
           } else {
-            this.openSnackbar('School already exists.');
+              this.openSnackbar('School already exists.');
           }
-
         });
-
-
       }
     }
   }

@@ -5,32 +5,32 @@
       <mat-nav-list>
         <h3 mat-subheader>Content Management</h3>
 
-        <a mat-list-item routerLink="" (click)="changeAppName('Dashboard', '/admin/dashboard')">
+        <a mat-list-item routerLink="/admin/dashboard" (click)="changeAppName('Dashboard', '/admin/dashboard')">
           <mat-icon class="ml-2 mr-3">dashboard</mat-icon>
           <span class="mt-1">Dashboard</span>
         </a>
 
-          <a mat-list-item routerLink="" (click)="changeAppName('User Management', '/admin/users')">
+          <a mat-list-item routerLink="/admin/users" (click)="changeAppName('User Management', '/admin/users')">
             <mat-icon class="ml-2 mr-3">supervisor_account</mat-icon>
             <span class="mt-1">User Management</span>
           </a>
 
-          <a mat-list-item routerLink="" (click)="changeAppName('School Management', '/admin/school')">
+          <a mat-list-item routerLink="/admin/school" (click)="changeAppName('School Management', '/admin/school')">
             <mat-icon class="ml-2 mr-3">school</mat-icon>
             <span class="mt-1">School Management</span>
           </a>
 
-          <a mat-list-item routerLink="" (click)="changeAppName('Course Management', '/admin/course')">
+          <a mat-list-item routerLink="/admin/course" (click)="changeAppName('Course Management', '/admin/course')">
             <mat-icon class="ml-2 mr-3">library_books</mat-icon>
             <span class="mt-1">Course Management</span>
           </a>
 
-          <a mat-list-item routerLink="" (click)="changeAppName('Question Management', '/admin/question')">
+          <a mat-list-item routerLink="/admin/question" (click)="changeAppName('Question Management', '/admin/question')">
             <mat-icon class="ml-2 mr-3">question_answer</mat-icon>
             <span class="mt-1">Question Management</span>
           </a>
 
-          <a mat-list-item routerLink="" (click)="changeAppName('Decision Tree', '/admin/tree')">
+          <a mat-list-item routerLink="/admin/tree" (click)="changeAppName('Decision Tree', '/admin/tree')">
             <mat-icon class="ml-2 mr-3">category</mat-icon>
             <span class="mt-1">Decision Tree</span>
           </a>
@@ -39,12 +39,12 @@
 
           <h3 mat-subheader>Settings</h3>
 
-          <a mat-list-item routerLink="" (click)="changeAppName('Configuration', '/admin/config')">
+          <a mat-list-item routerLink="/admin/config" (click)="changeAppName('Configuration', '/admin/config')">
             <mat-icon class="ml-2 mr-3">tune</mat-icon>
             <span class="mt-1">Configuration</span>
           </a>
 
-          <a mat-list-item routerLink="" (click)="changeAppName('Help', '/admin/help')">
+          <a mat-list-item routerLink="/admin/help" (click)="changeAppName('Help', '/admin/help')">
               <mat-icon class="ml-2 mr-3">live_help</mat-icon>
               <span class="mt-1">Help</span>
           </a>
@@ -53,12 +53,12 @@
 
           <h3 mat-subheader>User Account</h3>
 
-          <a mat-list-item routerLink="" (click)="changeAppName('My Account', '/admin/account')">
+          <a mat-list-item routerLink="/admin/account" (click)="changeAppName('My Account', '/admin/account')">
             <mat-icon class="ml-2 mr-3">account_circle</mat-icon>
             <span class="mt-1">My Account</span>
           </a>
 
-          <a class="mb-3" mat-list-item routerLink="" (click)="destroySession()">
+          <a class="mb-3" mat-list-item routerLink="/admin/login" (click)="destroySession()">
             <mat-icon class="ml-2 mr-3">exit_to_app</mat-icon>
             <span class="mt-1">Logout</span>
           </a>
@@ -78,7 +78,7 @@
       </button>
 
       <mat-menu #menu="matMenu">
-        <a mat-menu-item routerLink="" (click)="changeAppName('My Account', '/admin/account')">
+        <a mat-menu-item routerLink="/admin/account" (click)="changeAppName('My Account', '/admin/account')">
           <mat-icon>account_circle</mat-icon>
           <span>My Account</span>
         </a>

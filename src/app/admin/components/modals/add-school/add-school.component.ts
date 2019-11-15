@@ -12,6 +12,7 @@ import { MatSnackBar, MatDialogRef } from '@angular/material';
 export class AddSchoolComponent implements OnInit, OnDestroy {
   addSchoolForm: any;
   querySubscription: any;
+  flag = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,6 +61,12 @@ export class AddSchoolComponent implements OnInit, OnDestroy {
 
   addSchool(formData: any) {
     if (this.addSchoolForm.valid) {
+      this.addSchoolForm.get('sname').disable();
+      this.addSchoolForm.get('mntuition').disable();
+      this.addSchoolForm.get('mxtuition').disable();
+
+      this.flag = true;
+
       if (parseFloat(formData.mxtuition) > parseFloat(formData.mntuition)) {
         this.querySubscription = this.backendService.schoolExists(formData).subscribe((res) => {
           if (res["data"].length === 0) {

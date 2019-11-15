@@ -15,6 +15,7 @@ export class EditAdminComponent implements OnInit, OnDestroy {
   updateForm: any;
   formValues: any[];
   querySubscription: any;
+  flag = false;
 
   constructor(
     private getSet: GetsetService,
@@ -54,6 +55,14 @@ export class EditAdminComponent implements OnInit, OnDestroy {
 
   editAdmin(formData: any) {
     if (this.updateForm.valid) {
+      this.updateForm.get('fname').disable();
+      this.updateForm.get('mname').disable();
+      this.updateForm.get('lname').disable();
+      this.updateForm.get('uname').disable();
+      this.updateForm.get('pword').disable();
+      this.updateForm.get('status').disable();
+      this.flag = true;
+
       this.querySubscription = this.backendService.adminExists(formData).subscribe((res) => {
         if (res["data"].length === 0) {
           this.querySubscription = this.backendService.updateAdmin(formData).subscribe((res2) => {
@@ -70,7 +79,7 @@ export class EditAdminComponent implements OnInit, OnDestroy {
           });
 
         } else if (res["data"].length === 1) {
-          if (Number(res["data"][0]) === Number(formData.id)) {
+          if (Number(res["data"][0].id) === Number(formData.id)) {
             this.querySubscription = this.backendService.updateAdmin(formData).subscribe((res2) => {
 
             },

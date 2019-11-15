@@ -28,9 +28,6 @@ export class AdminComponent implements OnInit {
     this.pageName = this.getSet.appTitle;
   }
 
-
-
-
   destroySession() {
     this.getSet.updateLogs(11, 0);
     localStorage.removeItem('token');

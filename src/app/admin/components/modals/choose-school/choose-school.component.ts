@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { BackendService } from '../../services/backend.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export interface SchoolTree {
   id: number;
@@ -20,8 +20,10 @@ export class ChooseSchoolComponent implements OnInit, OnDestroy {
   schoolData: any;
   form: any;
   querySubscription: any;
+  flag = false;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private backendService: BackendService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ChooseSchoolComponent>
@@ -39,6 +41,9 @@ export class ChooseSchoolComponent implements OnInit, OnDestroy {
   }
 
   returnToParent(formData: any) {
+    this.form.get('school').disable();
+    this.flag = true;
+
     this.dialogRef.close(formData.school);
   }
 

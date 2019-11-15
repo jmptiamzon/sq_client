@@ -109,6 +109,22 @@ export class GetsetService implements OnDestroy {
     });
   }
 
+  editLinearTree(sid: number, qid: number) {
+    const jsonVal = {schoolId: sid, questionId: qid};
+
+    this.querySubscription = this.backendService.addLinearTree(jsonVal).subscribe((res) => {
+
+    });
+  }
+
+  deleteTree(id: number) {
+    const jsonVal = {question_id: id};
+
+    this.querySubscription = this.backendService.deleteLinearTree(jsonVal).subscribe((res) => {
+
+    });
+  }
+
   getUsers() {
     this.querySubscription = this.backendService.getUsers().subscribe((res) => {
       this.changeTableValueUser.next(res);

@@ -13,6 +13,7 @@ export class AddAdminComponent implements OnInit, OnDestroy {
   hide = true;
   addAdmin: any;
   querySubscription: any;
+  flag = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +45,12 @@ export class AddAdminComponent implements OnInit, OnDestroy {
 
   addAdminDialog(formData: any) {
     if (this.addAdmin.valid) {
+      this.addAdmin.get('fname').disable();
+      this.addAdmin.get('mname').disable();
+      this.addAdmin.get('lname').disable();
+      this.addAdmin.get('uname').disable();
+      this.addAdmin.get('pword').disable();
+      this.flag = true;
 
       this.querySubscription = this.backendService.adminExists(formData).subscribe((res) => {
         if (res["data"].length === 0) {

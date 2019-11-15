@@ -9,6 +9,7 @@ import { MatSnackBar, MatDialogRef } from '@angular/material';
 })
 export class AddMultipleComponent implements OnInit {
   form: any;
+  flag = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,6 +24,9 @@ export class AddMultipleComponent implements OnInit {
   }
 
   returnToParent(formData: any) {
+    this.form.get('number').disable();
+    this.flag = true;
+
     this.dialogRef.close(formData.number);
   }
 

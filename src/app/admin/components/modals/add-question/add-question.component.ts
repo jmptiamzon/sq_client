@@ -20,6 +20,7 @@ export class AddQuestionComponent implements OnInit, OnDestroy {
   addQuestionForm: any;
   querySubscription: any;
   courseData: any;
+  flag = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +45,10 @@ export class AddQuestionComponent implements OnInit, OnDestroy {
 
   addQuestion(formData: any) {
     if (this.addQuestionForm.valid) {
+      this.addQuestionForm.get('question').disable();
+      this.addQuestionForm.get('course').disable();
+      this.flag = true;
+
       this.querySubscription = this.backendService.questionExists(formData).subscribe((res) => {
         if (res["data"].length === 0) {
           this.querySubscription = this.backendService.addQuestion(formData).subscribe((res2) => {

@@ -21,6 +21,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   querySubscription: any;
   schools: any;
   addCourseForm: any;
+  flag = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,6 +48,10 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 
   addCourse(formData: any) {
     if (this.addCourseForm.valid) {
+      this.addCourseForm.get('sid').disable();
+      this.addCourseForm.get('cname').disable();
+      this.flag = true;
+
       this.querySubscription = this.backendService.courseExists(formData).subscribe((res) => {
         if (res["data"].length === 0) {
           this.querySubscription = this.backendService.addCourse(formData).subscribe((res2) => {
