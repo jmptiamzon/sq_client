@@ -82,10 +82,18 @@ export class EditQuestionComponent implements OnInit, OnDestroy {
             });
 
           } else {
+            this.editQuestionForm.get('question').enable();
+            this.editQuestionForm.get('course').enable();
+            this.editQuestionForm.get('status').enable();
+            this.flag = false;
             this.openSnackbar('Question already exists.');
           }
 
         } else {
+          this.editQuestionForm.get('question').enable();
+          this.editQuestionForm.get('course').enable();
+          this.editQuestionForm.get('status').enable();
+          this.flag = false;
           this.openSnackbar('Question already exists.');
         }
       });

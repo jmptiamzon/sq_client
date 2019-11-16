@@ -104,10 +104,20 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
               });
 
             } else {
+              this.editSchoolForm.get('sname').enable();
+              this.editSchoolForm.get('mntuition').enable();
+              this.editSchoolForm.get('mxtuition').enable();
+              this.editSchoolForm.get('status').enable();
+              this.flag = false;
               this.openSnackbar('School already exists.');
             }
 
           } else {
+              this.editSchoolForm.get('sname').enable();
+              this.editSchoolForm.get('mntuition').enable();
+              this.editSchoolForm.get('mxtuition').enable();
+              this.editSchoolForm.get('status').enable();
+              this.flag = false;
               this.openSnackbar('School already exists.');
           }
         });

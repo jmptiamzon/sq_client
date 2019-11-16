@@ -68,6 +68,9 @@ export class AddCourseComponent implements OnInit, OnDestroy {
           });
 
         } else {
+          this.addCourseForm.get('sid').enable();
+          this.addCourseForm.get('cname').enable();
+          this.flag = false;
           this.openSnackbar('Course already exists.');
 
         }

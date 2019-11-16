@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BackendService {
-  // url = 'https://ceval.herokuapp.com/';
-  url = 'http://localhost:3000/';
+  url = 'https://ceval.herokuapp.com/';
+  // url = 'http://localhost:3000/';
 
   constructor(private http: HttpClient) { }
 
@@ -83,6 +83,12 @@ export class BackendService {
     // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.post(this.url + 'getVisitorToken', formData, httpOptions);
+  }
+
+  getQuestionTree(formData: any) {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post(this.url + 'getQuestionTree', formData, httpOptions);
   }
 
   addSurvey(formData: any) {

@@ -27,7 +27,7 @@
   <input type="hidden" formControlName="schoolName">
   <h3>{{chosenSchool}}</h3>
   <div *ngIf="hide">
-    <button type="button" mat-raised-button color="primary" class="mb-3" (click)="addMultiple()">
+    <button type="button" mat-raised-button color="primary" class="mb-3" (click)="addMultiple()" [disabled]="flag">
       <mat-icon aria-hidden="false" class="mr-2">add</mat-icon>
       <span>Add Multiple Questions</span>
     </button>
@@ -49,17 +49,17 @@
         </mat-form-field>
 
         <button type="button" mat-icon-button class="ml-2"
-        matTooltip="Choose question" (click)="questionDialog(i)">
+        matTooltip="Choose question" (click)="questionDialog(i)" [disabled]="flag">
           <mat-icon>question_answer</mat-icon>
         </button>
 
         <button type="button" mat-icon-button color="primary"
-        matTooltip="Add next question" (click)="createFields(1)">
+        matTooltip="Add next question" (click)="createFields(1)" [disabled]="flag">
           <mat-icon>add</mat-icon>
         </button>
 
         <button type="button" mat-icon-button color="warn"
-        matTooltip="Remove this question" *ngIf="i > 0" (click)="removeFields(i)">
+        matTooltip="Remove this question" *ngIf="i > 0" (click)="removeFields(i)" [disabled]="flag">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card>
@@ -73,7 +73,7 @@
 <form [formGroup]="form" (ngSubmit)="editFormSubmit(form.value)">
   <input type="hidden" formControlName="schoolName">
   <div *ngIf="hide2">
-    <button type="button" mat-raised-button color="primary" class="mb-3" (click)="addMultiple()">
+    <button type="button" mat-raised-button color="primary" class="mb-3" (click)="addMultiple()" [disabled]="flag">
       <mat-icon aria-hidden="false" class="mr-2">add</mat-icon>
       <span>Add Multiple Questions</span>
     </button>
@@ -94,17 +94,17 @@
         </mat-form-field>
 
         <button type="button" mat-icon-button class="ml-2"
-        matTooltip="Choose question" (click)="questionDialog(i)">
+        matTooltip="Choose question" (click)="questionDialog(i)" [disabled]="flag">
           <mat-icon>question_answer</mat-icon>
         </button>
 
         <button type="button" mat-icon-button color="primary"
-        matTooltip="Add next question" (click)="createFields(1)">
+        matTooltip="Add next question" (click)="createFields(1)" [disabled]="flag">
           <mat-icon>add</mat-icon>
         </button>
 
         <button type="button" mat-icon-button color="warn"
-        matTooltip="Remove this question" *ngIf="i > 0" (click)="deleteEditForm(i)">
+        matTooltip="Remove this question" *ngIf="i > 0" (click)="deleteEditForm(i)" [disabled]="flag">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card>

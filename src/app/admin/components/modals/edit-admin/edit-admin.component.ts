@@ -94,10 +94,24 @@ export class EditAdminComponent implements OnInit, OnDestroy {
             });
 
           } else {
+            this.updateForm.get('fname').enable();
+            this.updateForm.get('mname').enable();
+            this.updateForm.get('lname').enable();
+            this.updateForm.get('uname').enable();
+            this.updateForm.get('pword').enable();
+            this.updateForm.get('status').enable();
+            this.flag = false;
             this.openSnackbar('Admin already exists.');
           }
 
         } else {
+          this.updateForm.get('fname').enable();
+          this.updateForm.get('mname').enable();
+          this.updateForm.get('lname').enable();
+          this.updateForm.get('uname').enable();
+          this.updateForm.get('pword').enable();
+          this.updateForm.get('status').enable();
+          this.flag = false;
           this.openSnackbar('Admin already exists.');
         }
 

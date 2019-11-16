@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableExporterModule } from 'mat-table-exporter';
 import { AddCourseComponent } from '../modals/add-course/add-course.component';
 import { EditCourseComponent } from '../modals/edit-course/edit-course.component';
 
@@ -41,6 +42,7 @@ import { EditCourseComponent } from '../modals/edit-course/edit-course.component
     MatSlideToggleModule,
     MatSelectModule,
     MatCardModule,
+    MatTableExporterModule,
   ],
   exports: [
     CourseComponent,

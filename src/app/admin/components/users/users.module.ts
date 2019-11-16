@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { AddAdminComponent } from '../modals/add-admin/add-admin.component';
 import { EditAdminComponent } from '../modals/edit-admin/edit-admin.component';
 import { UsertblComponent } from '../tables/usertbl/usertbl.component';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { UsertblComponent } from '../tables/usertbl/usertbl.component';
     MatDialogModule,
     MatSlideToggleModule,
     MatCardModule,
+    MatTableExporterModule,
   ],
   exports: [
     UsersComponent,

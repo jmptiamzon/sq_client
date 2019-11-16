@@ -3,8 +3,6 @@ import { GetsetService } from '../services/getset.service';
 import { MatTableDataSource, MatTable, MatPaginator, MatSort, yearsPerPage } from '@angular/material';
 import { BackendService } from '../services/backend.service';
 import * as CanvasJS from '../../../../assets/js/canvasjs.min.js';
-import { Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 
 export interface Log {
   id: number;
@@ -71,6 +69,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.schoolChart(new Date().getFullYear().toString());
     this.courseChart(new Date().getFullYear().toString());
     this.conversionRateChart(new Date().getFullYear().toString());
+    this.surveyChart(new Date().getFullYear().toString());
+    this.surveyChart2(new Date().getFullYear().toString());
   }
 
   visitorChart(year: any) {
@@ -103,7 +103,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         temp[dateStr] = (temp[dateStr] || 0) + 1;
       });
 
-      this.yearsVisitor = [...tempYear];
+      this.yearsVisitor = Array.from(tempYear);
 
       monthNameList.forEach(element => {
         dpointVisitor.push({y: (temp[element] || 0) , label: element });
@@ -205,12 +205,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.querySubscription = this.backendService.getConversionCount(selectedYear).subscribe((res) => {
       const dpointConversion = [];
       let conversion: any;
+      let temp = 0;
 
       conversion = (res["data"][0].tbl2 / res["data"][0].tbl1) * 100;
-      dpointConversion.push({y: conversion, name: 'Visitors who finished the assessment.'});
 
-      if ((100 - conversion) !== 0) {
-        dpointConversion.push({y: 100 - conversion, name: 'Visitors who did not finish the assessment.'});
+      if (conversion > 100) {
+        temp = Math.abs(conversion - 100);
+        dpointConversion.push({y: conversion - temp, name: 'Visitors who did not finish the assessment.'});
+        dpointConversion.push({y: temp, name: 'Visitors who finished the assessment.'});
+
+      } else {
+        dpointConversion.push({y: conversion, name: 'Visitors who did not finish the assessment.'});
+
+        if ((100 - conversion) !== 0) {
+          dpointConversion.push({y: 100 - conversion, name: 'Visitors who finished the assessment.'});
+        }
       }
 
       const chart4 = new CanvasJS.Chart('chartContainer4', {
@@ -230,6 +239,80 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
 
       chart4.render();
+    });
+  }
+
+  surveyChart(year: any) {
+    const selectedYear = year.value ? year.value : year;
+
+    this.querySubscription = this.backendService.getSurvey(selectedYear).subscribe((res) => {
+      const temp = [];
+      const dpointSchool = [];
+
+      // tslint:disable-next-line: only-arrow-functions
+      res["data"].forEach(function(x) {
+        temp[x.school_name] = (temp[x.school_name] || 0) + 1;
+      });
+
+      // tslint:disable-next-line: forin
+      for (const key in temp) {
+        dpointSchool.push({y: temp[key], name: key});
+      }
+
+      const chart5 = new CanvasJS.Chart('chartContainer5', {
+        theme: 'light1',
+        animationEnabled: true,
+        exportEnabled: true,
+        title: {
+          text: 'Where assessment takers enrolled (' + selectedYear + ')'
+        },
+        data: [{
+          type: 'pie',
+          showInLegend: true,
+          toolTipContent: '<b>{name}</b>: {y} (#percent%)',
+          indexLabel: '{name} - #percent%',
+          dataPoints: dpointSchool
+        }]
+      });
+
+      chart5.render();
+    });
+  }
+
+  surveyChart2(year: any) {
+    const selectedYear = year.value ? year.value : year;
+
+    this.querySubscription = this.backendService.getSurvey(selectedYear).subscribe((res) => {
+      const temp = [];
+      const dpointCourse = [];
+
+      // tslint:disable-next-line: only-arrow-functions
+      res["data"].forEach(function(x) {
+        temp[x.course_name] = (temp[x.course_name] || 0) + 1;
+      });
+
+      // tslint:disable-next-line: forin
+      for (const key in temp) {
+        dpointCourse.push({y: temp[key], name: key});
+      }
+
+      const chart6 = new CanvasJS.Chart('chartContainer6', {
+        theme: 'light1',
+        animationEnabled: true,
+        exportEnabled: true,
+        title: {
+          text: 'Course assessment takers took (' + selectedYear + ')'
+        },
+        data: [{
+          type: 'pie',
+          showInLegend: true,
+          toolTipContent: '<b>{name}</b>: {y} (#percent%)',
+          indexLabel: '{name} - #percent%',
+          dataPoints: dpointCourse
+        }]
+      });
+
+      chart6.render();
     });
   }
 

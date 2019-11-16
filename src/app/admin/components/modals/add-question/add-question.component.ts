@@ -65,6 +65,9 @@ export class AddQuestionComponent implements OnInit, OnDestroy {
           });
 
         } else {
+          this.addQuestionForm.get('question').enable();
+          this.addQuestionForm.get('course').enable();
+          this.flag = false;
           this.openSnackbar('Question already exists.');
         }
       });

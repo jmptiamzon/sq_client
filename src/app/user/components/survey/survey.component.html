@@ -15,9 +15,11 @@
       <mat-form-field style="width: 60vh;">
         <mat-label>Currently Enrolled At</mat-label>
         <mat-select formControlName="schoolEnroll">
-          <mat-option *ngFor="let school of schools" [value]="school.school_name">
-            {{school.school_name}}
-          </mat-option>
+          <ng-container *ngFor="let school of schools">
+            <mat-option *ngIf="school.status == 1" [value]="school.school_name">
+              {{school.school_name}}
+            </mat-option>
+          </ng-container>
         </mat-select>
       </mat-form-field>
 
@@ -32,9 +34,11 @@
       <mat-form-field style="width: 60vh;">
         <mat-label>Course Currently Enrolled In</mat-label>
         <mat-select formControlName="courseEnroll">
-          <mat-option *ngFor="let course of courses" [value]="course.course_name">
-            {{course.course_name}}
-          </mat-option>
+          <ng-container *ngFor="let course of courses">
+            <mat-option *ngIf="course.status == 1" [value]="course.course_name">
+              {{course.course_name}}
+            </mat-option>
+          </ng-container>
         </mat-select>
       </mat-form-field>
 

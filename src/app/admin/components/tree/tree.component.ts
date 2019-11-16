@@ -50,6 +50,7 @@ export class TreeComponent implements OnInit, OnDestroy {
   chosenQuestions: string[] = [];
   treeData: any;
   schoolDistinct = [];
+  flag = false;
 
   barButtonOptions: MatProgressButtonOptions = {
     active: false,
@@ -100,7 +101,7 @@ export class TreeComponent implements OnInit, OnDestroy {
         uniqueData.add(element.school_name);
       });
 
-      this.schoolDistinct = [...uniqueData];
+      this.schoolDistinct = Array.from(uniqueData);
     });
   }
 
@@ -129,7 +130,7 @@ export class TreeComponent implements OnInit, OnDestroy {
       });
 
       if (!flag) {
-        temp.push({id: element.id, school_name: element.school_name});
+        temp.push({id: element.id, school_name: element.school_name, status: element.status});
       }
       flag = false;
     });
@@ -137,6 +138,7 @@ export class TreeComponent implements OnInit, OnDestroy {
     const dialogVal = this.dialogRef.open(ChooseSchoolComponent, {
       width: '80vh',
       data: temp,
+      disableClose: true,
     });
 
     dialogVal.afterClosed().subscribe((res) => {
@@ -188,7 +190,8 @@ export class TreeComponent implements OnInit, OnDestroy {
       data: {
         schoolId: this.schoolId,
         questionUsed: temp
-      }
+      },
+      disableClose: true,
     });
 
     dialogVal.afterClosed().subscribe((res) => {
@@ -202,7 +205,8 @@ export class TreeComponent implements OnInit, OnDestroy {
 
   addMultiple() {
     const dialogVal = this.dialogRef.open(AddMultipleComponent, {
-      width: '80vh'
+      width: '80vh',
+      disableClose: true,
     });
 
     dialogVal.afterClosed().subscribe((res) => {
@@ -245,9 +249,14 @@ export class TreeComponent implements OnInit, OnDestroy {
     this.removeFields(id);
 
     if (question !== '') {
-      this.getSet.deleteTree(this.findIdTree(question));
-      this.getTree();
+      this.treeData.forEach((element: any) => {
+        if (element.school_name === this.chosenSchool) {
+          this.getSet.deleteTree(this.findIdTree(question));
+        }
+      });
     }
+
+    this.getTree();
   }
 
   findById(id: number) {
@@ -271,6 +280,7 @@ export class TreeComponent implements OnInit, OnDestroy {
   }
 
   formSubmit(formData: any) {
+    this.flag = true;
     let flag = true;
     this.barButtonOptions.active = true;
 
@@ -289,6 +299,7 @@ export class TreeComponent implements OnInit, OnDestroy {
     }
 
     setTimeout(() => {
+      this.flag = false;
       this.barButtonOptions.active = false;
       this.openSnackbar('Tree added successfully.');
       this.hide = false;
@@ -296,6 +307,8 @@ export class TreeComponent implements OnInit, OnDestroy {
   }
 
   editFormSubmit(formData: any) {
+    this.flag = true;
+    this.barButtonOptions.disabled = true;
     let flag = true;
     this.barButtonOptions.active = true;
 
@@ -309,7 +322,9 @@ export class TreeComponent implements OnInit, OnDestroy {
 
     if (flag) {
       this.treeData.forEach((element: any) => {
-        this.getSet.deleteTree(Number(element.tree_id));
+        if (element.school_name === this.chosenSchool) {
+          this.getSet.deleteTree(Number(element.tree_id));
+        }
       });
 
       for (const element of formData.questions) {
@@ -318,8 +333,10 @@ export class TreeComponent implements OnInit, OnDestroy {
     }
 
     setTimeout(() => {
+      this.flag = false;
       this.barButtonOptions.active = false;
       this.openSnackbar('Tree updated successfully.');
+      this.editTree(this.chosenSchool);
       this.getTree();
       this.hide2 = false;
     }, 5000);

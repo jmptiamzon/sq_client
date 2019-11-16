@@ -61,7 +61,7 @@ export class CourseComponent implements OnInit, OnDestroy {
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 
@@ -69,6 +69,7 @@ export class CourseComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(AddCourseComponent, {
       height: '300px',
       width: '500px',
+      disableClose: true,
     });
   }
 
@@ -76,6 +77,7 @@ export class CourseComponent implements OnInit, OnDestroy {
     this.getSet.courseData = [id, school, course, status];
     const dialogRef = this.dialog.open(EditCourseComponent, {
       width: '500px',
+      disableClose: true,
     });
   }
 

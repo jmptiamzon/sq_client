@@ -56,17 +56,17 @@ export class SchoolComponent implements OnInit, OnDestroy {
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 
   addSchoolDialog() {
-    const dialogRef = this.dialog.open(AddSchoolComponent);
+    const dialogRef = this.dialog.open(AddSchoolComponent, { disableClose: true });
   }
 
   editSchool(id: number, school: string, min: bigint, max: bigint, status: boolean) {
     this.getSet.schoolData = [id, school, min, max, status];
-    const dialogRef = this.dialog.open(EditSchoolComponent);
+    const dialogRef = this.dialog.open(EditSchoolComponent, { disableClose: true });
   }
 
   ngOnDestroy() {

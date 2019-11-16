@@ -68,20 +68,22 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   openSnackbar(msg: string) {
     this.snackBar.open(msg , '' , {
-      duration: 2000,
+      duration: 5000,
     });
   }
 
   addQuestionDialog() {
     const dialogRef = this.dialog.open(AddQuestionComponent, {
-      width: '100vh'
+      width: '100vh',
+      disableClose: true,
     });
   }
 
   editQuestion(id: number, question: string, course: string, status: boolean) {
     this.getSet.questionData = [id, question, course, status];
     const dialogRef = this.dialog.open(EditQuestionComponent, {
-      width: '100vh'
+      width: '100vh',
+      disableClose: true,
     });
   }
 

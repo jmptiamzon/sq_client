@@ -4,9 +4,11 @@
       <mat-form-field style="width: 100%;">
         <mat-label>Schools</mat-label>
         <mat-select formControlName="school">
-          <mat-option *ngFor="let item of data" [value]="item.id">
-            {{item.school_name}}
-          </mat-option>
+          <ng-container *ngFor="let item of data">
+            <mat-option *ngIf="item.status == 1" [value]="item.id">
+              {{item.school_name}}
+            </mat-option>
+          </ng-container>
         </mat-select>
       </mat-form-field>
     </mat-dialog-content>

@@ -84,10 +84,18 @@ export class EditCourseComponent implements OnInit, OnDestroy {
             });
 
           } else {
+            this.editCourseForm.get('sid').enable();
+            this.editCourseForm.get('cname').enable();
+            this.editCourseForm.get('status').enable();
+            this.flag = false;
             this.openSnackbar('Course already exists.');
           }
 
         } else {
+          this.editCourseForm.get('sid').enable();
+          this.editCourseForm.get('cname').enable();
+          this.editCourseForm.get('status').enable();
+          this.flag = false;
           this.openSnackbar('Course already exists.');
         }
       });

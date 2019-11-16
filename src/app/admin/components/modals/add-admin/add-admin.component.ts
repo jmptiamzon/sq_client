@@ -68,6 +68,12 @@ export class AddAdminComponent implements OnInit, OnDestroy {
           });
 
         } else {
+          this.addAdmin.get('fname').enable();
+          this.addAdmin.get('mname').enable();
+          this.addAdmin.get('lname').enable();
+          this.addAdmin.get('uname').enable();
+          this.addAdmin.get('pword').enable();
+          this.flag = false;
           this.openSnackbar('Admin already exists.');
         }
       });

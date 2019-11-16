@@ -28,6 +28,7 @@ export class AssessmentComponent implements OnInit, OnDestroy {
   resultsHidden = true;
   dPoints = [];
   userData: any;
+  counter = 0;
 
   constructor(
     private backendService: BackendService,
@@ -47,17 +48,18 @@ export class AssessmentComponent implements OnInit, OnDestroy {
       selectedSchool: new FormControl('', [Validators.required]),
     });
 
-    this.querySubscription = this.backendService.getAssessmentQuestions().subscribe((res) => {
-      this.questions = res["data"];
-      this.initFields(res["data"]);
-    });
-
     this.querySubscription = this.backendService.getAssessmentCourse().subscribe((res) => {
       this.course = res["data"];
     });
 
     this.querySubscription = this.backendService.getAssessmentSchool().subscribe((res) => {
       this.school = res["data"];
+    });
+
+
+    this.querySubscription = this.backendService.getAssessmentQuestions().subscribe((res) => {
+      this.questions = res["data"];
+      this.initFields(res["data"]);
     });
 
   }
@@ -70,6 +72,11 @@ export class AssessmentComponent implements OnInit, OnDestroy {
     });
 
     this.submitLog(17);
+  }
+
+  addCounter() {
+    this.counter += 1;
+    return this.counter;
   }
 
   submitForm(formData: any) {

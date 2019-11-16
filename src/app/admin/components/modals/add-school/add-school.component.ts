@@ -84,6 +84,11 @@ export class AddSchoolComponent implements OnInit, OnDestroy {
             });
 
           } else {
+            this.addSchoolForm.get('sname').enable();
+            this.addSchoolForm.get('mntuition').enable();
+            this.addSchoolForm.get('mxtuition').enable();
+
+            this.flag = false;
             this.openSnackbar('School already exists.');
           }
         });

@@ -14,6 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableExporterModule } from 'mat-table-exporter';
 import { AddSchoolComponent } from '../modals/add-school/add-school.component';
 import { EditSchoolComponent } from '../modals/edit-school/edit-school.component';
 
@@ -39,6 +40,7 @@ import { EditSchoolComponent } from '../modals/edit-school/edit-school.component
     MatDialogModule,
     MatSlideToggleModule,
     MatCardModule,
+    MatTableExporterModule,
   ],
   exports: [
     SchoolComponent,

@@ -20,8 +20,8 @@ import { LogTbl } from '../tables/userlog/userlog.component';
   providedIn: 'root'
 })
 export class BackendService {
-  // url = 'https://ceval.herokuapp.com/';
-  url = 'http://localhost:3000/';
+  url = 'https://ceval.herokuapp.com/';
+  // url = 'http://localhost:3000/';
 
   constructor(private http: HttpClient) { }
   login(formData: any) {
@@ -311,6 +311,12 @@ export class BackendService {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
     return this.http.get(this.url + 'getTrees', httpOptions);
+  }
+
+  getSurvey(year: number) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get(this.url + 'getSurvey/' + year, httpOptions);
   }
 
 }

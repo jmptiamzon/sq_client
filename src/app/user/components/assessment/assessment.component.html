@@ -98,9 +98,13 @@
 
       <form [formGroup]="questionForm" (ngSubmit)="submitAnswers()">
         <ng-container *ngFor="let item of questions; let i = index;">
+
           <ng-container *ngIf="item.school_id == chosenSchool">
             <mat-card style="background-color: #EDF0F5; margin-bottom: 1vh;">
-              {{i+1}}. {{item.question}}
+              <ng-container *ngIf="addCounter">
+                {{questions.length - (questions.length - i)}}. {{item.question}}
+
+              </ng-container>
               <br>
               <mat-radio-group aria-label="Select an option" formControlName="userAnswer{{i}}">
                 <mat-radio-button value="SA">Strongly Agree</mat-radio-button><br>

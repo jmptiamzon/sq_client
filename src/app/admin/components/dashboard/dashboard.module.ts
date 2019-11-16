@@ -13,6 +13,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { UserlogComponent } from '../tables/userlog/userlog.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableExporterModule } from 'mat-table-exporter';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatSnackBarModule,
     MatCardModule,
     MatSelectModule,
+    MatTableExporterModule,
+    MatButtonModule,
   ],
   exports: [
     DashboardComponent,

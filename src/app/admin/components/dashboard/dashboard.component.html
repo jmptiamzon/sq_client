@@ -97,6 +97,40 @@
 
 <br>
 
+<div class="row">
+    <div class="col">
+      <mat-card>
+          <mat-form-field style="display: block; margin: 0 auto;">
+            <mat-label>Choose a year</mat-label>
+            <mat-select (selectionChange)="surveyChart($event)">
+              <mat-option *ngFor="let year of yearsVisitor" [value]="year">
+                {{year}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div id="chartContainer5" style="height: 370px;"></div>
+      </mat-card>
+    </div>
+
+    <div class="col">
+      <mat-card>
+        <mat-form-field style="display: block; margin: 0 auto;">
+          <mat-label>Choose a year</mat-label>
+          <mat-select (selectionChange)="surveyChart2($event)">
+            <mat-option *ngFor="let year of yearsVisitor" [value]="year">
+              {{year}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div id="chartContainer6" style="height: 370px;"></div>
+      </mat-card>
+    </div>
+  </div>
+
+<br>
+
 <mat-card>
   <mat-tab-group>
     <mat-tab label="Admin">
@@ -109,8 +143,15 @@
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
 
+        <span style="float: right;">
+          <button mat-raised-button style="margin-right: 1vh;" (click)="exporter.exportTable('xlsx', {fileName:'test', sheet: 'sheet_name', Props: {Author: 'Talha'}})">Excel</button>
+          <button mat-raised-button style="margin-right: 1vh;" (click)="exporter.exportTable('csv')">Csv</button>
+          <button mat-raised-button style="margin-right: 1vh;" (click)="exporter.exportTable('json')">Json</button>
+          <button mat-raised-button (click)="exporter.exportTable('txt')">Txt</button>
+        </span>
+
         <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource" matSort>
+          <table mat-table matTableExporter [dataSource]="dataSource" matSort #exporter="matTableExporter">
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 25%;"> ID </th>
               <td mat-cell *matCellDef="let row" style="width: 25%;"> {{row.id}} </td>

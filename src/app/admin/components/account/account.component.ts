@@ -86,12 +86,13 @@ export class AccountComponent implements OnInit, OnDestroy {
           },
           () => {
             this.updateLocalStorage();
+            this.barButtonOptions.disabled = false;
             this.getSet.updateLogs(10, 0);
             this.openSnackbar('Account successfully updated!');
           });
 
         } else if (res["data"].length === 1) {
-          if (Number(formData.id) === Number(res["data"].id)) {
+          if (Number(formData.id) === Number(res["data"][0].id)) {
             this.querySubscription = this.backendService.updateCurrentUser(formData).subscribe((res2) => {
               // console.log(res["data"]);
             },
@@ -99,16 +100,19 @@ export class AccountComponent implements OnInit, OnDestroy {
               this.barButtonOptions.active = false;
             },
             () => {
+              this.barButtonOptions.disabled = false;
               this.updateLocalStorage();
               this.getSet.updateLogs(10, 0);
               this.openSnackbar('Account successfully updated!');
             });
 
           } else {
+            this.barButtonOptions.disabled = false;
             this.openSnackbar('There is an associated user for that account.');
           }
 
         } else {
+          this.barButtonOptions.disabled = false;
           this.openSnackbar('There is an associated user for that account.');
         }
 
