@@ -88,7 +88,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 
   findById(id: number) {
     if (id !== 0) {
-      return this.schools.find((x: any) => x.id === id).school_name;
+      return this.schools.find((x: any) => x.school_id === id).school_name;
     }
   }
 

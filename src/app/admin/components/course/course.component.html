@@ -34,7 +34,7 @@
             <div *ngIf="row.school_id.includes(',')">
               <div *ngFor="let item of row.school_id.split(',')">
                 <div *ngFor="let items of schools">
-                  <div *ngIf="item == items.id">
+                  <div *ngIf="item == items.school_id">
                     {{items.school_name}}
                   </div>
                 </div>
@@ -42,7 +42,7 @@
             </div>
             <div *ngIf="!row.school_id.includes(',')">
               <div *ngFor="let item of schools">
-                <div *ngIf="row.school_id == item.id">
+                <div *ngIf="row.school_id == item.school_id">
                   {{item.school_name}}
                 </div>
               </div>

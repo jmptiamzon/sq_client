@@ -31,7 +31,7 @@
                   </mat-select-trigger>
 
                   <ng-container *ngFor="let school of schools">
-                    <mat-option *ngIf="school.status == 1" [value]="school.id">{{school.school_name}}</mat-option>
+                    <mat-option *ngIf="school.status == 1" [value]="school.school_id">{{school.school_name}}</mat-option>
                   </ng-container>
                 </mat-select>
 

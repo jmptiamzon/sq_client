@@ -130,7 +130,7 @@ export class TreeComponent implements OnInit, OnDestroy {
       });
 
       if (!flag) {
-        temp.push({id: element.id, school_name: element.school_name, status: element.status});
+        temp.push({id: element.school_id, school_name: element.school_name, status: element.status});
       }
       flag = false;
     });
