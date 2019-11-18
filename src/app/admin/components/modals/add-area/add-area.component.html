@@ -1,0 +1,24 @@
+<form [formGroup]="addArea" (ngSubmit)="addAreaDialog(addArea.value)">
+  <h2 mat-dialog-title>Add Area</h2>
+  <mat-dialog-content class="mat-typography">
+      <div class="container">
+        <div class="row">
+          <mat-form-field class="mr-3" style="width: 100%;">
+            <input matInput placeholder="Area" formControlName="area" cdkFocusInitial required>
+            <mat-error *ngIf="area.hasError('required')">
+              Area is required.
+            </mat-error>
+
+            <mat-error *ngIf="area.hasError('pattern')">
+              Area is not valid.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close [disabled]="flag">Cancel</button>
+    <button type="submit" mat-button [disabled]="flag">Submit</button>
+  </mat-dialog-actions>
+</form>

@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.querySubscription = this.backendService.login(formData).subscribe((res) => {
         if (res["data"].length === 0) {
           this.errorSnackbar('No such user exists.');
+          this.barButtonOptions.active = false;
         } else {
           this.barButtonOptions.active = false;
           localStorage.setItem('currentUser', JSON.stringify(res["data"][0]));

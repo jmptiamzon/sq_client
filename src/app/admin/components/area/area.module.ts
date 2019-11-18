@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SchoolComponent } from './school.component';
+import { AreaComponent } from './area.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -12,25 +12,25 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 import { MatTableExporterModule } from 'mat-table-exporter';
-import { AddSchoolComponent } from '../modals/add-school/add-school.component';
-import { EditSchoolComponent } from '../modals/edit-school/edit-school.component';
+import { AddAreaComponent } from '../modals/add-area/add-area.component';
+import { EditAreaComponent } from '../modals/edit-area/edit-area.component';
 
 @NgModule({
   declarations: [
-    SchoolComponent,
-    AddSchoolComponent,
-    EditSchoolComponent,
+    AreaComponent,
+    AddAreaComponent,
+    EditAreaComponent,
   ],
   imports: [
     CommonModule,
     MatPaginatorModule,
     MatFormFieldModule,
-    FormsModule,
     ReactiveFormsModule,
+    FormsModule,
     MatTableModule,
     MatInputModule,
     MatSortModule,
@@ -40,14 +40,14 @@ import { EditSchoolComponent } from '../modals/edit-school/edit-school.component
     MatTooltipModule,
     MatDialogModule,
     MatSlideToggleModule,
+    MatSelectModule,
     MatCardModule,
     MatTableExporterModule,
-    MatSelectModule,
   ],
   exports: [
-    SchoolComponent,
-    AddSchoolComponent,
-    EditSchoolComponent,
-  ]
+    AreaComponent,
+    AddAreaComponent,
+    EditAreaComponent,
+  ],
 })
-export class SchoolModule { }
+export class AreaModule { }

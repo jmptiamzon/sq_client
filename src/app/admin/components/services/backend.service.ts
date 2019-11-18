@@ -14,6 +14,7 @@ import { AddQuestionTree, AddCourseTree, AddSchoolTree } from '../modals/add-que
 import { SchoolTree } from '../modals/choose-school/choose-school.component';
 import { User } from '../tables/usertbl/usertbl.component';
 import { LogTbl } from '../tables/userlog/userlog.component';
+import { Area } from '../area/area.component';
 // import 'rxjs/add/operator/map';
 
 @Injectable({
@@ -34,6 +35,12 @@ export class BackendService {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
     return this.http.post(this.url + 'addAdmin', formData, httpOptions);
+  }
+
+  addArea(formData: any) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
+    return this.http.post(this.url + 'addArea', formData, httpOptions);
   }
 
   addSchool(formData: any) {
@@ -88,6 +95,24 @@ export class BackendService {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
     return this.http.get(this.url + 'getAppStatus', httpOptions);
+  }
+
+  getDataArea(): Observable<Area> {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get<Area>(this.url + 'getDataArea', httpOptions);
+  }
+
+  getArea() {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get(this.url + 'getDataArea', httpOptions);
+  }
+
+  getDataAreaModal(): Observable<SchoolModal> {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.get<SchoolModal>(this.url + 'getDataArea', httpOptions);
   }
 
   getDataSchool(): Observable<School> {
@@ -184,6 +209,12 @@ export class BackendService {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
     return this.http.post(this.url + 'updateAdmin', formData, httpOptions);
+  }
+
+  updateArea(formData: any) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token })};
+    return this.http.post(this.url + 'updateArea', formData, httpOptions);
   }
 
   updateSchool(formData: any) {
@@ -287,6 +318,12 @@ export class BackendService {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
     return this.http.post(this.url + 'adminExists', formData, httpOptions);
+  }
+
+  areaExists(formData: any) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'token': token }) };
+    return this.http.post(this.url + 'areaExists', formData, httpOptions);
   }
 
   schoolExists(formData: any) {

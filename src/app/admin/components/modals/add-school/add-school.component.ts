@@ -13,6 +13,7 @@ export class AddSchoolComponent implements OnInit, OnDestroy {
   addSchoolForm: any;
   querySubscription: any;
   flag = false;
+  areas: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,11 +21,16 @@ export class AddSchoolComponent implements OnInit, OnDestroy {
     private backendService: BackendService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<AddSchoolComponent>,
-  ) { }
+  ) {
+    this.querySubscription = this.backendService.getArea().subscribe((res) => {
+      this.areas = res["data"];
+    });
+  }
 
   ngOnInit() {
     this.addSchoolForm = this.formBuilder.group({
       sname: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ,.\'-]+$')]),
+      areaSelect: new FormControl('', [Validators.required]),
       mntuition: new FormControl('', [
         Validators.required,
         Validators.pattern('^[0-9]+$')
@@ -62,6 +68,7 @@ export class AddSchoolComponent implements OnInit, OnDestroy {
   addSchool(formData: any) {
     if (this.addSchoolForm.valid) {
       this.addSchoolForm.get('sname').disable();
+      this.addSchoolForm.get('areaSelect').disable();
       this.addSchoolForm.get('mntuition').disable();
       this.addSchoolForm.get('mxtuition').disable();
 
@@ -85,6 +92,7 @@ export class AddSchoolComponent implements OnInit, OnDestroy {
 
           } else {
             this.addSchoolForm.get('sname').enable();
+            this.addSchoolForm.get('areaSelect').enable();
             this.addSchoolForm.get('mntuition').enable();
             this.addSchoolForm.get('mxtuition').enable();
 
@@ -105,6 +113,10 @@ export class AddSchoolComponent implements OnInit, OnDestroy {
 
   get sname() {
     return this.addSchoolForm.get('sname');
+  }
+
+  get areaSelect() {
+    return this.addSchoolForm.get('areaSelect');
   }
 
   get mntuition() {

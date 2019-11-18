@@ -11,6 +11,7 @@ import { CourseModal } from '../modals/add-question/add-question.component';
 import { CourseEditModal } from '../modals/edit-question/edit-question.component';
 import { User } from '../tables/usertbl/usertbl.component';
 import { LogTbl } from '../tables/userlog/userlog.component';
+import { Area } from '../area/area.component';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class GetsetService implements OnDestroy {
   errorMessage = '';
   dataLoading = false;
   adminData: any[];
+  areaData: any[];
   schoolData: any[];
   courseData: any[];
   questionData: any[];
@@ -29,6 +31,8 @@ export class GetsetService implements OnDestroy {
   changeTableValueLog2: Subject<LogTbl> = new Subject<LogTbl>();
   changeTableValue: Subject<Admin> = new Subject<Admin>();
   changeTableValueUser: Subject<User> = new Subject<User>();
+  changeTableValueArea: Subject<Area> = new Subject<Area>();
+  // changeTableValueAreaModal: Subject<CourseModal> = new Subject<CourseModal>();
   changeTableValueSchool: Subject<School> = new Subject<School>();
   changeTableValueSchoolModal: Subject<SchoolModal> = new Subject<SchoolModal>();
   changeTableValueCourse: Subject<Course> = new Subject<Course>();
@@ -57,6 +61,18 @@ export class GetsetService implements OnDestroy {
   getData() {
     this.querySubscription = this.backendService.getData().subscribe((res) => {
       this.changeTableValue.next(res);
+    });
+  }
+
+  getDataArea() {
+    this.querySubscription = this.backendService.getDataArea().subscribe((res) => {
+      this.changeTableValueArea.next(res);
+    });
+  }
+
+  getDataAreaModal() {
+    this.querySubscription = this.backendService.getDataSchoolModal().subscribe((res) => {
+      this.changeTableValueSchoolModal.next(res);
     });
   }
 

@@ -13,6 +13,7 @@ import { TreeModule } from './tree/tree.module';
 import { MainComponent } from './main.component';
 import { UsertblComponent } from './tables/usertbl/usertbl.component';
 import { UserlogComponent } from './tables/userlog/userlog.component';
+import { AreaModule } from './area/area.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { UserlogComponent } from './tables/userlog/userlog.component';
     QuestionModule,
     SchoolModule,
     TreeModule,
+    AreaModule,
   ],
   exports: [
     LoginModule,
@@ -44,6 +46,7 @@ import { UserlogComponent } from './tables/userlog/userlog.component';
     QuestionModule,
     SchoolModule,
     TreeModule,
+    AreaModule,
   ],
 })
 export class MainModule { }

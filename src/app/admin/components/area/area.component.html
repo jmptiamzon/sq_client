@@ -1,0 +1,62 @@
+<mat-card>
+  <p style="font-size: 12px;">Area Monitoring</p>
+  <h2 style="margin-top: -3vh;">Area Data Management</h2>
+
+  <hr>
+
+  <div class="container mb-4 mt-4">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
+    <span style="float: right;">
+      <button mat-raised-button style="margin-right: 1vh;" (click)="exporter.exportTable('xlsx', {fileName:'test', sheet: 'sheet_name', Props: {Author: 'Talha'}})">Excel</button>
+      <button mat-raised-button style="margin-right: 1vh;" (click)="exporter.exportTable('csv')">Csv</button>
+      <button mat-raised-button style="margin-right: 1vh;" (click)="exporter.exportTable('json')">Json</button>
+      <button mat-raised-button style="margin-right: 1vh;" (click)="exporter.exportTable('txt')">Txt</button>
+      <button mat-raised-button color="primary" class="mt-2" (click)="addAreaDialog()">
+        <mat-icon aria-hidden="false" class="mr-2">map</mat-icon>
+        <span>Add Area</span>
+      </button>
+    </span>
+
+    <div class="mat-elevation-z8">
+      <table mat-table matTableExporter [dataSource]="dataSource" matSort #exporter="matTableExporter">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 25%;"> ID </th>
+          <td mat-cell *matCellDef="let row" style="width: 25%;"> {{row.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="area">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 35%;"> Area </th>
+          <td mat-cell *matCellDef="let row" style="width: 35%;"> {{row.area}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef style="width: 25%;">Status</th>
+          <td mat-cell *matCellDef="let row" style="width: 25%;">
+            <ng-container *ngIf="row.status == 1; else elseTemplate">Active</ng-container>
+            <ng-template #elseTemplate>Inactive</ng-template>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button matTooltip="Edit item"
+            (click)="editArea(row.id, row.area, row.status)">
+               <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+</mat-card>

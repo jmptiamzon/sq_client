@@ -15,7 +15,9 @@ export class AssessmentComponent implements OnInit, OnDestroy {
   questions: any;
   course: any;
   school: any;
+  areas: any;
   form: any;
+  selectedArea: number;
   schoolForm: any;
   questionForm: any;
   questionHidden = true;
@@ -42,10 +44,16 @@ export class AssessmentComponent implements OnInit, OnDestroy {
       age: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
       email: new FormControl('', [Validators.required, Validators.email]),
       income: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
+      courseChoice: new FormControl('', [Validators.pattern('^[a-zA-Z ,.\'-]+$')]),
+      areaSelect: new FormControl('', [Validators.required]),
     });
 
     this.schoolForm = this.formBuilder.group({
       selectedSchool: new FormControl('', [Validators.required]),
+    });
+
+    this.querySubscription = this.backendService.getArea().subscribe((res) => {
+      this.areas = res["data"];
     });
 
     this.querySubscription = this.backendService.getAssessmentCourse().subscribe((res) => {
@@ -55,7 +63,6 @@ export class AssessmentComponent implements OnInit, OnDestroy {
     this.querySubscription = this.backendService.getAssessmentSchool().subscribe((res) => {
       this.school = res["data"];
     });
-
 
     this.querySubscription = this.backendService.getAssessmentQuestions().subscribe((res) => {
       this.questions = res["data"];
@@ -89,7 +96,10 @@ export class AssessmentComponent implements OnInit, OnDestroy {
       this.form.get('age').disable();
       this.form.get('email').disable();
       this.form.get('income').disable();
+      this.form.get('areaSelect').disable();
+      this.form.get('courseChoice').disable();
       this.annualIncome = formData.income;
+      this.selectedArea = formData.areaSelect;
       this.disableBtn = true;
       this.schoolHidden = false;
       this.submitLog(18);
@@ -122,7 +132,7 @@ export class AssessmentComponent implements OnInit, OnDestroy {
     const results = [];
     const finalResults = [];
 
-    if (!this.questionForm.invalid) {
+    //if (!this.questionForm.invalid) {
       this.questions.forEach(element => {
         element.course_id.split(',').forEach(elem => {
           this.course.forEach(ele => {
@@ -235,7 +245,7 @@ export class AssessmentComponent implements OnInit, OnDestroy {
 
       this.submitLog(19);
       this.renderChart();
-    }
+  //  }
   }
 
   initFields(returnValue: any) {
@@ -260,6 +270,14 @@ export class AssessmentComponent implements OnInit, OnDestroy {
       return true;
     }
     return false;
+  }
+
+  get courseChoice() {
+    return this.form.get('courseChoice');
+  }
+
+  get areaSelect() {
+    return this.form.get('areaSelect');
   }
 
   get fname() {

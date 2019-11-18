@@ -31,6 +31,9 @@ import { TreeModule } from './components/tree/tree.module';
 import { AddQuestionTreeComponent } from './components/modals/add-question-tree/add-question-tree.component';
 import { AddMultipleComponent } from './components/modals/add-multiple/add-multiple.component';
 import { ChooseSchoolComponent } from './components/modals/choose-school/choose-school.component';
+import { AreaModule } from './components/area/area.module';
+import { EditAreaComponent } from './components/modals/edit-area/edit-area.component';
+import { AddAreaComponent } from './components/modals/add-area/add-area.component';
 
 
 @NgModule({
@@ -48,6 +51,7 @@ import { ChooseSchoolComponent } from './components/modals/choose-school/choose-
     QuestionModule,
     SchoolModule,
     TreeModule,
+    AreaModule,
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -71,6 +75,8 @@ import { ChooseSchoolComponent } from './components/modals/choose-school/choose-
     AddQuestionTreeComponent,
     AddMultipleComponent,
     ChooseSchoolComponent,
+    AddAreaComponent,
+    EditAreaComponent,
   ]
 })
 export class AdminModule { }

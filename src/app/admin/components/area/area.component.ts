@@ -1,27 +1,26 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { GetsetService } from '../services/getset.service';
 import { MatTableDataSource, MatTable, MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
-import { AddSchoolComponent } from '../modals/add-school/add-school.component';
-import { EditSchoolComponent } from '../modals/edit-school/edit-school.component';
+import { GetsetService } from '../services/getset.service';
+import { AddAreaComponent } from '../modals/add-area/add-area.component';
+import { EditAreaComponent } from '../modals/edit-area/edit-area.component';
 
-export interface School {
+export interface Area {
   id: number;
-  school_name: string;
-  min_tuition: bigint;
-  max_tuition: bigint;
+  area: string;
   status: boolean;
 }
 
 @Component({
-  selector: 'app-school',
-  templateUrl: './school.component.html',
-  styleUrls: ['./school.component.css']
+  selector: 'app-area',
+  templateUrl: './area.component.html',
+  styleUrls: ['./area.component.css']
 })
-export class SchoolComponent implements OnInit, OnDestroy {
+export class AreaComponent implements OnInit, OnDestroy {
   querySubscription: any;
+  area: any;
 
-  displayedColumns: string[] = ['id', 'area', 'school', 'min-max', 'status', 'actions'];
-  dataSource = new MatTableDataSource<School>();
+  displayedColumns: string[] = ['id', 'area', 'status', 'actions'];
+  dataSource = new MatTableDataSource<Area>();
 
   @ViewChild(MatTable, {static: true}) table: MatTable<any>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -31,14 +30,16 @@ export class SchoolComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
   ) {
-    this.getSet.getDataSchool();
+    this.getSet.getDataArea();
+    this.getSet.getDataAreaModal();
 
-    this.querySubscription = this.getSet.changeTableValueSchool.subscribe((res) => {
+    this.querySubscription = this.getSet.changeTableValueArea.subscribe((res) => {
       this.dataSource.data = res["data"];
       this.table.renderRows();
     });
 
-    this.getSet.appTitle = 'School Management';
+
+    this.getSet.appTitle = 'Area Management';
   }
 
   ngOnInit() {
@@ -60,13 +61,19 @@ export class SchoolComponent implements OnInit, OnDestroy {
     });
   }
 
-  addSchoolDialog() {
-    const dialogRef = this.dialog.open(AddSchoolComponent, { disableClose: true });
+  addAreaDialog() {
+    const dialogRef = this.dialog.open(AddAreaComponent, {
+      width: '500px',
+      disableClose: true,
+    });
   }
 
-  editSchool(id: number, areaId: number, school: string, min: bigint, max: bigint, status: boolean) {
-    this.getSet.schoolData = [id, areaId, school, min, max, status];
-    const dialogRef = this.dialog.open(EditSchoolComponent, { disableClose: true });
+  editArea(id: number, area: string, status: boolean) {
+    this.getSet.areaData = [id, area, status];
+    const dialogRef = this.dialog.open(EditAreaComponent, {
+      width: '500px',
+      disableClose: true,
+    });
   }
 
   ngOnDestroy() {

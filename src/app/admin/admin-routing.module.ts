@@ -13,6 +13,7 @@ import { HelpComponent } from './components/help/help.component';
 import { TreeComponent } from './components/tree/tree.component';
 import { AccountComponent } from './components/account/account.component';
 import { AuthGuardService } from './components/services/auth-guard.service';
+import { AreaComponent } from './components/area/area.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'help', component: HelpComponent, canActivate: [AuthGuardService] },
       { path: 'account', component: AccountComponent, canActivate: [AuthGuardService] },
       { path: 'tree', component: TreeComponent, canActivate: [AuthGuardService] },
+      { path: 'area', component: AreaComponent, canActivate: [AuthGuardService] },
       { path: '**', pathMatch: 'full', redirectTo: 'admin/dashboard' },
     ],
   },

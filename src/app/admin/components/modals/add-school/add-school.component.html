@@ -18,6 +18,23 @@
               </mat-error>
             </mat-form-field>
 
+            <mat-form-field>
+              <mat-label>Choose Area</mat-label>
+              <mat-select formControlName="areaSelect">
+                <ng-container *ngFor="let area of areas" >
+                  <mat-option *ngIf="area.status == 1" [value]="area.id">
+                    {{area.area}}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+
+              <mat-error *ngIf="areaSelect.hasError('required')">
+                Area is required.
+              </mat-error>
+            </mat-form-field>
+            </div>
+
+            <div class="row">
             <mat-form-field class="mr-3">
               <input matInput placeholder="Minimum Tuition" formControlName="mntuition" required>
               <mat-error *ngIf="mntuition.hasError('required')">

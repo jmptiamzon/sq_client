@@ -14,6 +14,7 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
   formValues: any[];
   querySubscription: any;
   flag = false;
+  areas: any;
 
   constructor(
     private getSet: GetsetService,
@@ -21,11 +22,16 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
     private backendService: BackendService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<EditSchoolComponent>,
-  ) { }
+  ) {
+    this.querySubscription = this.backendService.getArea().subscribe((res) => {
+      this.areas = res["data"];
+    });
+  }
 
   ngOnInit() {
     this.editSchoolForm = this.formBuilder.group({
       id: new FormControl('', [Validators.required]),
+      areaSelect: new FormControl('', [Validators.required]),
       sname: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ,.\'-]+$')]),
       mntuition: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
       mxtuition: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
@@ -58,15 +64,17 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
 
     this.formValues = this.getSet.schoolData;
     this.editSchoolForm.get('id').setValue(this.formValues[0]);
-    this.editSchoolForm.get('sname').setValue(this.formValues[1]);
-    this.editSchoolForm.get('mntuition').setValue(this.formValues[2]);
-    this.editSchoolForm.get('mxtuition').setValue(this.formValues[3]);
-    this.editSchoolForm.get('status').setValue(this.formValues[4]);
+    this.editSchoolForm.get('areaSelect').setValue(this.formValues[1]);
+    this.editSchoolForm.get('sname').setValue(this.formValues[2]);
+    this.editSchoolForm.get('mntuition').setValue(this.formValues[3]);
+    this.editSchoolForm.get('mxtuition').setValue(this.formValues[4]);
+    this.editSchoolForm.get('status').setValue(this.formValues[5]);
   }
 
   editSchool(formData: any) {
     if (this.editSchoolForm.valid) {
       this.editSchoolForm.get('sname').disable();
+      this.editSchoolForm.get('areaSelect').disable();
       this.editSchoolForm.get('mntuition').disable();
       this.editSchoolForm.get('mxtuition').disable();
       this.editSchoolForm.get('status').disable();
@@ -105,6 +113,7 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
 
             } else {
               this.editSchoolForm.get('sname').enable();
+              this.editSchoolForm.get('areaSelect').enable();
               this.editSchoolForm.get('mntuition').enable();
               this.editSchoolForm.get('mxtuition').enable();
               this.editSchoolForm.get('status').enable();
@@ -114,6 +123,7 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
 
           } else {
               this.editSchoolForm.get('sname').enable();
+              this.editSchoolForm.get('areaSelect').enable();
               this.editSchoolForm.get('mntuition').enable();
               this.editSchoolForm.get('mxtuition').enable();
               this.editSchoolForm.get('status').enable();
@@ -133,6 +143,10 @@ export class EditSchoolComponent implements OnInit, OnDestroy {
 
   get sname() {
     return this.editSchoolForm.get('sname');
+  }
+
+  get areaSelect() {
+    return this.editSchoolForm.get('areaSelect');
   }
 
   get mntuition() {

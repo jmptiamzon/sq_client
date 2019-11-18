@@ -73,6 +73,12 @@ export class BackendService {
     return this.http.get(this.url + 'getSurveySchool', httpOptions);
   }
 
+  getArea() {
+    // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.get(this.url + 'getArea', httpOptions);
+  }
+
   surveyExists(formData: any) {
     // const token = localStorage.getItem('token') ? localStorage.getItem('token') : 'dummy';
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
