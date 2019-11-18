@@ -272,11 +272,11 @@ export class TreeComponent implements OnInit, OnDestroy {
   }
 
   findByIdSchool(id: number) {
-    return this.school.find((x: any) => x.id === id).school_name;
+    return this.school.find((x: any) => x.school_id === id).school_name;
   }
 
   findIdSchool(school: string) {
-    return this.school.find((x: any) => x.school_name === school).id;
+    return this.school.find((x: any) => x.school_name === school).school_id;
   }
 
   formSubmit(formData: any) {
